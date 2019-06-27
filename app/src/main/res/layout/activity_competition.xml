@@ -6,12 +6,37 @@
         android:layout_height="match_parent"
         tools:context=".CompetitionActivity">
 
-    <ImageView
-            android:id="@+id/competitionIcon"
-            android:layout_width="106dp"
-            android:layout_height="106dp"
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="0dp" android:id="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+                android:id="@+id/compInfo"
+                android:text="TextView"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:paddingLeft="0dp"
+                android:layout_marginLeft="110dp" android:paddingBottom="30dp"
+                android:gravity="center" android:paddingTop="20dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="competitionIcon" android:layout_marginTop="84dp"
-            android:layout_marginStart="16dp" android:adjustViewBounds="false"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginRight="300dp">
+        <ImageView
+                android:id="@+id/competitionIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="competitionIcon" android:layout_marginTop="50dp"
+                android:layout_marginStart="0dp"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:maxHeight="200dp" android:maxWidth="200dp"
+                android:cropToPadding="false" app:layout_constraintStart_toStartOf="parent"
+                android:adjustViewBounds="false" android:layout_gravity="left"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

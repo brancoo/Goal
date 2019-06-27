@@ -1,15 +1,13 @@
 package com.example.golo;
 
-import android.graphics.Bitmap;
-import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import com.example.Models.Competition.Competition;
-import com.example.Models.Competition.CompetitionSeason;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CompetitionActivity extends AppCompatActivity {
     private final String url = "http://api.football-data.org/v2/competitions/";
@@ -30,6 +28,10 @@ public class CompetitionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         this.setTitle(competition.getName() + " - " + competition.getCode() + " | " + competition.getArea().getName());
+
+        TextView textView = findViewById(R.id.compInfo);
+        textView.setText("Código da Competição: "+competition.getCode()+"\n"+"Nome do País da Competição: "+
+                        competition.getArea().getName()+"\n"+"ID da Competição: "+competition.getId());
 
         ImageView imageView = findViewById(R.id.competitionIcon);
         if (competition.getName().equals("Primeira Liga"))
@@ -54,5 +56,6 @@ public class CompetitionActivity extends AppCompatActivity {
                 imageView.setImageResource(R.drawable.ic_eredivisie);
         else if (competition.getName().equals("FIFA World Cup"))
                 imageView.setImageResource(R.drawable.ic_worldcup);
+
     }
 }
