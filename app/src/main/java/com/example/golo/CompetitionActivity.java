@@ -1,5 +1,6 @@
 package com.example.golo;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +30,17 @@ public class CompetitionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         getSupportActionBar().setTitle("\t"+competition.getName());
-        toolbar.setLogo(R.drawable.ic_portugal);
-
+        switch(competition.getArea().getName()){
+            case "Portugal":toolbar.setLogo(R.drawable.ic_portugal); break;
+            case "Spain":   toolbar.setLogo(R.drawable.ic_spain); break;
+            case "Germany": toolbar.setLogo(R.drawable.ic_germany); break;
+            case "France":  toolbar.setLogo(R.drawable.ic_france); break;
+            case "Netherlands": toolbar.setLogo(R.drawable.ic_netherlands); break;
+            case "Italy": toolbar.setLogo(R.drawable.ic_italy); break;
+            case "England":   toolbar.setLogo(R.drawable.ic_england); break;
+            case "Brazil":    toolbar.setLogo(R.drawable.ic_brazil); break;
+            case "World":
+            case "Europe":  { toolbar.setLogo(R.drawable.ic_europe); break; }
+        }
     }
 }
