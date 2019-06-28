@@ -21,22 +21,5 @@
                 android:layout_marginLeft="110dp" android:paddingBottom="30dp"
                 android:gravity="center" android:paddingTop="20dp"/>
     </LinearLayout>
-    <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginRight="300dp">
-        <ImageView
-                android:id="@+id/competitionIcon"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="competitionIcon" android:layout_marginTop="50dp"
-                android:layout_marginStart="0dp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                tools:maxHeight="200dp" android:maxWidth="200dp"
-                android:cropToPadding="false" app:layout_constraintStart_toStartOf="parent"
-                android:adjustViewBounds="false" android:layout_gravity="left"/>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

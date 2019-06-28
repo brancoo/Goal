@@ -1,23 +1,28 @@
 package com.example.golo;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private int compIcons[];
 
     // data is passed into the constructor
-    RecyclerViewAdapter(Context context, List<String> data) {
+    RecyclerViewAdapter(Context context, List<String> data, int[] compIcons) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.compIcons = compIcons;
     }
 
     // inflates the row layout from xml when needed
@@ -31,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(mData.get(position));
+        holder.imageView.setImageResource(compIcons[position]);
     }
 
     // total number of rows
@@ -40,11 +46,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        public TextView myTextView;
+        public ImageView imageView;
 
         ViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.compName);
+            imageView = itemView.findViewById(R.id.compIcon);
             itemView.setOnClickListener(this);
         }
 
