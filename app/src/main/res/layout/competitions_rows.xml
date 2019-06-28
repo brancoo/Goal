@@ -10,7 +10,6 @@
     <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/ic_brazil"
             android:id="@+id/compIcon"/>
     <TextView
             android:id="@+id/compName"

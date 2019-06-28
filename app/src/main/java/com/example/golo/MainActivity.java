@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +29,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("GOLO");
+        setSupportActionBar(toolbar);
+
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
