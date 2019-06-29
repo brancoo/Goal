@@ -16,13 +16,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private int compIcons[];
+    private int compIcons[] = { R.drawable.ic_liganos, R.drawable.ic_champions, R.drawable.ic_ligueone,
+                                R.drawable.ic_worldcup, R.drawable.ic_championship, R.drawable.ic_eredivisie,
+                                R.drawable.ic_bundesliga, R.drawable.ic_premierleague, R.drawable.ic_euro2016,
+                                R.drawable.ic_seriea, R.drawable.ic_laliga, R.drawable.ic_brasileirao};
 
     // data is passed into the constructor
-    RecyclerViewAdapter(Context context, List<String> data, int[] compIcons) {
+    RecyclerViewAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        this.compIcons = compIcons;
     }
 
     // inflates the row layout from xml when needed
@@ -36,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(mData.get(position));
-        //holder.imageView.setImageResource(compIcons[position]); DEMORA MUITO TEMPO A CARREGAR A RECYCLER VIEW
+        holder.imageView.setImageResource(compIcons[position]);
     }
 
     // total number of rows

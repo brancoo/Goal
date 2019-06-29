@@ -20,10 +20,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     RecyclerViewAdapter adapter;
     private Map<String,String> mapOfCompetitions = new HashMap<String, String>();
     private final String url = "http://api.football-data.org/v2/competitions";
-    private int compIcons[] = { R.drawable.ic_liganos, R.drawable.ic_champions, R.drawable.ic_ligueone, R.drawable.ic_worldcup,
-                                R.drawable.ic_championship, R.drawable.ic_eredivisie, R.drawable.ic_bundesliga,
-                                R.drawable.ic_premierleague, R.drawable.ic_euro2016, R.drawable.ic_seriea, R.drawable.ic_laliga,
-                                R.drawable.ic_seriea};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         RecyclerView recyclerView = findViewById(R.id.idCompetitionsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerViewAdapter(this, compNames, compIcons);
+        adapter = new RecyclerViewAdapter(this, compNames);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
