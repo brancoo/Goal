@@ -1,16 +1,22 @@
 package com.example.golo;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 import com.example.Models.Competition.Competition;
+import com.example.Models.Standing.Standing;
+import com.google.android.material.tabs.TabLayout;
 
 public class CompetitionActivity extends AppCompatActivity {
     private final String url = "http://api.football-data.org/v2/competitions/";
     private Competition competition;
+    private Standing standing;
+    private TabLayout tabLayout;
+    private ViewPagerAdapter viewPagerAdapter;
+    private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +29,15 @@ public class CompetitionActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        try {
+        try {  //verificar se o objecto seleccionado já existe para não fazer request sempre do mesmo objecto
             DataSource<Competition> data = new DataSource<>();
-            competition = data.getObjectfromJson(url+compId, Competition.class);
+            DataSource<Standing> dataStanding = new DataSource<>();
+            competition = data.getObjectfromJson(url + compId, Competition.class);
+            standing = dataStanding.getObjectfromJson(url+"standings", Standing.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         getSupportActionBar().setTitle("\t"+competition.getName());
         switch(competition.getArea().getName()){
             case "Portugal":toolbar.setLogo(R.drawable.ic_portugal); break;
@@ -42,5 +51,15 @@ public class CompetitionActivity extends AppCompatActivity {
             case "World":
             case "Europe":  { toolbar.setLogo(R.drawable.ic_europe); break; }
         }
+
+        tabLayout = findViewById(R.id.tabLayoutId);
+        viewPager = findViewById(R.id.viewPagerId);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.AddFragment(new FragmentTotal(),"TOTAL");
+        viewPagerAdapter.AddFragment(new FragmentHome(),"HOME");
+        viewPagerAdapter.AddFragment(new FragmentHome(),"AWAY");
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
     }
 }

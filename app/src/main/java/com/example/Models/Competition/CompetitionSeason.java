@@ -1,5 +1,6 @@
 package com.example.Models.Competition;
 
+import com.example.Models.Team.Winner;
 import com.google.gson.annotations.SerializedName;
 
 public class CompetitionSeason {
@@ -15,11 +16,15 @@ public class CompetitionSeason {
     @SerializedName("currentMatchday")
     private String currentMatchday;
 
-    public CompetitionSeason(String id, String startDate, String endDate, String currentMatchday) {
+    @SerializedName("winner")
+    private Winner winner;
+
+    public CompetitionSeason(String id, String startDate, String endDate, String currentMatchday, Winner winner) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.currentMatchday = currentMatchday;
+        this.winner = winner;
     }
 
     public String getId() {
@@ -38,13 +43,11 @@ public class CompetitionSeason {
         return currentMatchday;
     }
 
+    public Winner getWinner() { return winner; }
+
     @Override
     public String toString() {
-        return "CompetitionSeason{" +
-                "id='" + id + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
-                ", currentMatchday='" + currentMatchday + '\'' +
-                '}';
+        return "startDate = " + startDate + '\t' + "endDate = " + endDate + '\t' +
+                "currentMatchday =" + currentMatchday + '\n';
     }
 }

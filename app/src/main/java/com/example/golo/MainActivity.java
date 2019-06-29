@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
-
     RecyclerViewAdapter adapter;
     private Map<String,String> mapOfCompetitions = new HashMap<String, String>();
     private final String url = "http://api.football-data.org/v2/competitions";
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         List<String> compNames = new ArrayList<String>(mapOfCompetitions.keySet());
 
-        RecyclerView recyclerView = findViewById(R.id.idComp);
+        RecyclerView recyclerView = findViewById(R.id.idCompetitionsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecyclerViewAdapter(this, compNames, compIcons);
         adapter.setClickListener(this);
