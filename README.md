@@ -6,3 +6,7 @@ Work in progress...
 
 ## Done
  - [x] - Initial menu, with all the competitions that I have access.
+
+
+## Screenshots
+![alt text](https://drive.google.com/open?id=1-TqFUJFJhfRRKckInzf3-Th4YkpO5uhq)
