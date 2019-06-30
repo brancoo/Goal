@@ -1,7 +1,6 @@
 package com.example.golo;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -38,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(mData.get(position));
-        //holder.imageView.setImageResource(compIcons[position]); DEMORA MUITO A CARREGAR AS IMAGENS
+        holder.imageView.setImageResource(compIcons[position]); //DEMORA MUITO A CARREGAR AS IMAGENS
     }
 
     // total number of rows
