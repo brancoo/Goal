@@ -1,0 +1,71 @@
+package com.example.golo;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.Models.Standing.StandingTeam;
+
+import java.util.List;
+
+public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerViewStandingAdapter.ViewHolder> {
+    private LayoutInflater mInflater;
+    private RecyclerViewStandingAdapter.ItemClickListener mClickListener;
+    private List<StandingTeam> standingTeams;
+
+    public RecyclerViewStandingAdapter(Context context, List<StandingTeam> standingTeams) {
+        this.mInflater = LayoutInflater.from(context);
+        this.standingTeams = standingTeams;
+    }
+
+    @Override
+    public RecyclerViewStandingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.standingrow, parent, false);
+        return new RecyclerViewStandingAdapter.ViewHolder(view);
+    }
+
+    // binds the data to the TextView in each row
+    @Override
+    public void onBindViewHolder(RecyclerViewStandingAdapter.ViewHolder holder, int position) {
+        holder.myTextView.setText(standingTeams.get(position).toString());
+    }
+
+    // total number of rows
+    @Override
+    public int getItemCount() {
+        return standingTeams.size();
+    }
+
+public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public TextView myTextView;
+
+    ViewHolder(View itemView) {
+        super(itemView);
+        myTextView = itemView.findViewById(R.id.standingTeamName);
+        itemView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (mClickListener != null)
+            mClickListener.onItemClick(view, getAdapterPosition());
+    }
+}
+
+    // convenience method for getting data at click position
+    String getItem(int id) {
+        return standingTeams.get(id).getTeam().getName();
+    }
+
+    // allows clicks events to be caught
+    void setClickListener(RecyclerViewStandingAdapter.ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
+}

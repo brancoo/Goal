@@ -38,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(mData.get(position));
-        holder.imageView.setImageResource(compIcons[position]);
+        //holder.imageView.setImageResource(compIcons[position]); DEMORA MUITO A CARREGAR AS IMAGENS
     }
 
     // total number of rows

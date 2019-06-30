@@ -83,4 +83,11 @@ public class StandingTeam {
     }
 
     public Team getTeam() { return team;}
+
+    @Override
+    public String toString() {
+        return team.getName() + '\t' +  getPosition() + '\t' + getWon() + '\t' + getDraw()
+                + '\t' + getLost() + '\t' + getPoints() + '\t' + getGoalsFor()
+                + '\t' + getGoalsAgainst() + '\t' + getGoalDifference();
+    }
 }

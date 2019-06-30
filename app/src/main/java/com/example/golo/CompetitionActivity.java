@@ -1,44 +1,51 @@
 package com.example.golo;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Standing.Standing;
+import com.example.Models.Standing.StandingTeam;
 import com.google.android.material.tabs.TabLayout;
 
-public class CompetitionActivity extends AppCompatActivity {
-    private final String url = "http://api.football-data.org/v2/competitions/";
+import java.util.ArrayList;
+import java.util.List;
+
+public class CompetitionActivity extends AppCompatActivity implements RecyclerViewStandingAdapter.ItemClickListener {
+    private String url = "http://api.football-data.org/v2/competitions/";
     private Competition competition;
     private Standing standing;
     private TabLayout tabLayout;
     private ViewPagerAdapter viewPagerAdapter;
     private ViewPager viewPager;
-
+    private RecyclerViewStandingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        Bundle extras = getIntent().getExtras();
-        String compId = extras.getString("compId");
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true); //para as imagens .xml
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Bundle extras = getIntent().getExtras();
+        String compId = extras.getString("compId"); //vou buscar o ID da competição seleccionada anteriormente
 
         try {  //verificar se o objecto seleccionado já existe para não fazer request sempre do mesmo objecto
             DataSource<Competition> data = new DataSource<>();
-            DataSource<Standing> dataStanding = new DataSource<>();
             competition = data.getObjectfromJson(url + compId, Competition.class);
-            standing = dataStanding.getObjectfromJson(url+"standings", Standing.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("\t"+competition.getName());
+
         switch(competition.getArea().getName()){
             case "Portugal":toolbar.setLogo(R.drawable.ic_portugal); break;
             case "Spain":   toolbar.setLogo(R.drawable.ic_spain); break;
@@ -55,11 +62,23 @@ public class CompetitionActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayoutId);
         viewPager = findViewById(R.id.viewPagerId);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.AddFragment(new FragmentTotal(),"TOTAL");
-        viewPagerAdapter.AddFragment(new FragmentHome(),"HOME");
-        viewPagerAdapter.AddFragment(new FragmentHome(),"AWAY");
+        Bundle bundle = new Bundle();
+        bundle.putString("compId", compId); //para enviar o ID da competição seleccionada para cada fragmento
+        FragmentTotal fragmentTotal = new FragmentTotal();
+        FragmentHome fragmentHome = new FragmentHome();
+        FragmentAway fragmentAway = new FragmentAway();
+        fragmentTotal.setArguments(bundle); //envio para cada fragmento o ID
+        fragmentHome.setArguments(bundle);
+        fragmentAway.setArguments(bundle);
+        viewPagerAdapter.AddFragment(fragmentTotal,"TOTAL");
+        viewPagerAdapter.AddFragment(fragmentHome,"HOME");
+        viewPagerAdapter.AddFragment(fragmentAway,"AWAY");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast toast = Toast.makeText(getApplicationContext(),"OLA", Toast.LENGTH_LONG);
     }
 }
