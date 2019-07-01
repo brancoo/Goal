@@ -3,9 +3,54 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="108dp">
 
+        <TextView
+                android:textStyle="bold"
+                android:text="GD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView16" android:paddingStart="380dp"/>
+        <TextView
+                android:text="GA"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView15" android:paddingStart="350dp"/>
+        <TextView
+                android:text="GS"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView14" android:paddingStart="320dp"/>
+        <TextView
+                android:text="L"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView13"
+                android:paddingStart="280dp"/>
+        <TextView
+                android:text="D"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView12" android:paddingStart="260dp"/>
+        <TextView
+                android:text="W"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView11" android:paddingStart="240dp"/>
+        <TextView
+                android:text="Points"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView10" android:paddingStart="180dp"/>
+        <TextView
+                android:text="Name"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView9"/>
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeStandingRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_marginTop="108dp"/>
+            android:layout_height="match_parent"/>
 </LinearLayout>

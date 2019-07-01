@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" android:padding="20dp">
+        android:orientation="horizontal" android:paddingTop="20dp">
 
     <TextView
             android:id="@+id/standingTeamName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textStyle="bold"
-    />
-</LinearLayout>
+            android:text="Name"
+            android:layout_marginBottom="-1dp" android:layout_alignBottom="@+id/standingTeamWins"/>
+    <TextView
+            android:text="Points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamPoints"
+            android:layout_marginStart="180dp"/>
+    <TextView
+            android:text="W"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamWins" android:layout_marginStart="240dp"/>
+    <TextView
+            android:text="D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamDraws"
+            android:layout_marginStart="260dp"/>
+    <TextView
+            android:text="L"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamLosses"
+            android:layout_marginStart="280dp"/>
+    <TextView
+            android:text="GS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamGoalsScored"
+            android:layout_marginStart="320dp"/>
+    <TextView
+            android:text="GA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamGoalsAgainst"
+            android:layout_marginStart="350dp"/>
+    <TextView
+            android:text="GD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamGoalsDifference"
+            android:layout_marginStart="380dp"/>
+</RelativeLayout>

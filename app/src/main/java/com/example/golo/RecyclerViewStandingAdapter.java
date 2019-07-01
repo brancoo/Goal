@@ -29,7 +29,14 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(RecyclerViewStandingAdapter.ViewHolder holder, int position) {
-        holder.myTextView.setText(standingTeams.get(position).toString());
+        holder.textViewTeamName.setText(standingTeams.get(position).getTeam().getName());
+        holder.textViewTeamPoints.setText(standingTeams.get(position).getPoints());
+        holder.textViewTeamWins.setText(standingTeams.get(position).getWon());
+        holder.textViewTeamDraws.setText(standingTeams.get(position).getDraw());
+        holder.textViewTeamLosses.setText(standingTeams.get(position).getLost());
+        holder.textViewTeamGoalsScored.setText(standingTeams.get(position).getGoalsFor());
+        holder.textViewTeamGoalsAgainst.setText(standingTeams.get(position).getGoalsAgainst());
+        holder.textViewTeamGoalsDifference.setText(standingTeams.get(position).getGoalDifference());
     }
 
     // total number of rows
@@ -39,11 +46,25 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public TextView myTextView;
+    public TextView textViewTeamName;
+    public TextView textViewTeamPoints;
+    public TextView textViewTeamWins;
+    public TextView textViewTeamDraws;
+    public TextView textViewTeamLosses;
+    public TextView textViewTeamGoalsScored;
+    public TextView textViewTeamGoalsAgainst;
+    public TextView textViewTeamGoalsDifference;
 
     ViewHolder(View itemView) {
         super(itemView);
-        myTextView = itemView.findViewById(R.id.standingTeamName);
+        textViewTeamName = itemView.findViewById(R.id.standingTeamName);
+        textViewTeamPoints = itemView.findViewById(R.id.standingTeamPoints);
+        textViewTeamWins = itemView.findViewById(R.id.standingTeamWins);
+        textViewTeamDraws = itemView.findViewById(R.id.standingTeamDraws);
+        textViewTeamLosses = itemView.findViewById(R.id.standingTeamLosses);
+        textViewTeamGoalsScored = itemView.findViewById(R.id.standingTeamGoalsScored);
+        textViewTeamGoalsAgainst = itemView.findViewById(R.id.standingTeamGoalsAgainst);
+        textViewTeamGoalsDifference = itemView.findViewById(R.id.standingTeamGoalsDifference);
         itemView.setOnClickListener(this);
     }
 
