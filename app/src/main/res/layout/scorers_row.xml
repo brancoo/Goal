@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:paddingTop="20dp">
+
+    <TextView
+            android:text="Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/scorerNameId"/>
+    <TextView
+            android:text="Team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/scorerTeamId" android:paddingStart="130dp"/>
+    <TextView
+            android:text="Nationality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/scorerNationalityId" android:paddingStart="240dp"
+    />
+    <TextView
+            android:text="Goals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/scorerGoalsId" android:paddingStart="360dp"/>
+</RelativeLayout>

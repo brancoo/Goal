@@ -12,43 +12,43 @@
                 android:textStyle="bold"
                 android:text="GD"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView16" android:paddingStart="380dp"/>
+                android:layout_height="wrap_content" android:paddingStart="380dp"/>
         <TextView
                 android:text="GA"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView15" android:paddingStart="350dp"/>
+                android:layout_height="wrap_content" android:paddingStart="350dp"/>
         <TextView
                 android:text="GS"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView14" android:paddingStart="320dp"/>
+                android:layout_height="wrap_content" android:paddingStart="320dp"/>
         <TextView
                 android:text="L"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView13"
+                android:layout_height="wrap_content"
                 android:paddingStart="280dp"/>
         <TextView
                 android:text="D"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView12" android:paddingStart="260dp"/>
+                android:layout_height="wrap_content" android:paddingStart="260dp"/>
         <TextView
                 android:text="W"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView11" android:paddingStart="240dp"/>
+                android:layout_height="wrap_content" android:paddingStart="240dp"/>
         <TextView
                 android:text="Points"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView10" android:paddingStart="180dp"/>
+                android:layout_height="wrap_content" android:paddingStart="180dp"/>
         <TextView
                 android:text="Name"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView9"/>
+                android:layout_height="wrap_content"/>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/totalStandingRecyclerView"

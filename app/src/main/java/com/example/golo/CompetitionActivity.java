@@ -36,15 +36,18 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
         String compId = extras.getString("compId"); //vou buscar o ID da competição seleccionada anteriormente
 
         try {  //verificar se o objecto seleccionado já existe para não fazer request sempre do mesmo objecto
-            DataSource<Competition> data = new DataSource<>();
-            competition = data.getObjectfromJson(url + compId, Competition.class);
+                DataSource<Competition> data = new DataSource<>();
+                competition = data.getObjectfromJson(url + compId, Competition.class);
         } catch (Exception e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("\t"+competition.getName());
+        String[] startYear = competition.getCurrentSeason().getStartDate().split(("-"));
+        String[] endYear = competition.getCurrentSeason().getEndDate().split(("-"));
+        String currentSeason = startYear[0] + "/" + endYear[0];
+        getSupportActionBar().setTitle("\t"+competition.getName() + " - " + currentSeason);
 
         switch(competition.getArea().getName()){
             case "Portugal":toolbar.setLogo(R.drawable.ic_portugal); break;
@@ -67,14 +70,19 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
         FragmentTotal fragmentTotal = new FragmentTotal();
         FragmentHome fragmentHome = new FragmentHome();
         FragmentAway fragmentAway = new FragmentAway();
+        FragmentScorers fragmentScorers = new FragmentScorers();
         fragmentTotal.setArguments(bundle); //envio para cada fragmento o ID
         fragmentHome.setArguments(bundle);
         fragmentAway.setArguments(bundle);
+        fragmentScorers.setArguments(bundle);
         viewPagerAdapter.AddFragment(fragmentTotal,"TOTAL");
         viewPagerAdapter.AddFragment(fragmentHome,"HOME");
         viewPagerAdapter.AddFragment(fragmentAway,"AWAY");
+        viewPagerAdapter.AddFragment(fragmentScorers, "SCORERS");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     @Override

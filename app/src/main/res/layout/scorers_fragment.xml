@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="108dp">
+
+        <TextView
+                android:text="Name"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:text="Team"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:paddingStart="130dp"/>
+        <TextView
+                android:text="Nationality"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="240dp"/>
+        <TextView
+                android:text="Goals"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:paddingStart="360dp"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/scorersRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+</LinearLayout>
