@@ -18,11 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentHome extends Fragment {
-    View view;
+    private View view;
     private RecyclerView recyclerView;
     private Standing standing;
-    private List<StandingTeam> standingTeamList;
-    DataSource<Standing> dataStanding = new DataSource<>();
+    private DataSource<Standing> dataStanding = new DataSource<>();
 
     public FragmentHome(){
 
@@ -33,7 +32,7 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceBundle){
         view = inflater.inflate(R.layout.home_fragment, container, false);
         recyclerView = view.findViewById(R.id.homeStandingRecyclerView);
-        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(),standingTeamList);
+        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(), standing.getStandings().get(1).getTable());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerViewStandingAdapter);
         return view;
@@ -44,10 +43,9 @@ public class FragmentHome extends Fragment {
         super.onCreate(savedInstanceBundle);
         String compId = getArguments().getString("compId");
         try {
-            standing = dataStanding.getObjectfromJson("http://api.football-data.org/v2/competitions/"+compId+"/standings", Standing.class);
+            standing = dataStanding.getObjectfromJson(dataStanding.getUrl()+compId+"/standings", Standing.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        standingTeamList = new ArrayList<>(standing.getStandings().get(1).getTable());
     }
 }

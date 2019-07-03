@@ -8,8 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class DataSource<T> {
-
     private final String API_token = "e251f2f69b2b4413aaba270a02148849";
+    private String url = "http://api.football-data.org/v2/competitions/";
 
     public String getJsonfromURL(final String apiURL) throws Exception {
                 URL url = new URL(apiURL);
@@ -43,5 +43,9 @@ public class DataSource<T> {
         json =  getJsonfromURL(apiURL);
         result = gson.fromJson(json, myClass);
         return result;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

@@ -21,7 +21,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
     RecyclerViewAdapter adapter;
     private Map<String, String> mapOfCompetitions = new HashMap<String, String>();
-    private final String url = "http://api.football-data.org/v2/competitions";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private void setData(){
         DataSource<CompetitionList> data = new DataSource<>();
         try {
-            CompetitionList compList = data.getObjectfromJson(url, CompetitionList.class);
+            CompetitionList compList = data.getObjectfromJson(data.getUrl(), CompetitionList.class);
             for (Competition competition : compList.getAvailableCompetitions())
                 mapOfCompetitions.put(competition.getName(), competition.getId());
         } catch (Exception e) {
