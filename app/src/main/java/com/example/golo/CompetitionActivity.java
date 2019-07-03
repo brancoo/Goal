@@ -30,6 +30,8 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
     private RecyclerView recyclerView;
     private TeamList teamList;
     private Toolbar toolbar;
+    private String[] startYear, endYear;
+    private String currentSeason;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +43,23 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
         String compId = extras.getString("compId"); //vou buscar o ID da competição seleccionada anteriormente
 
         try {  //verificar se o objecto seleccionado já existe para não fazer request sempre do mesmo objecto
-                DataSource<Competition> data = new DataSource<>();
-                competition = data.getObjectfromJson(url + compId, Competition.class);
+            DataSource<Competition> data = new DataSource<>();
+            competition = data.getObjectfromJson(url + compId, Competition.class);
         } catch (Exception e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
 
         toolbar = findViewById(R.id.toolbar);
         setIconToolbar();
         setSupportActionBar(toolbar);
 
-        String[] startYear = competition.getCurrentSeason().getStartDate().split(("-"));
-        String[] endYear = competition.getCurrentSeason().getEndDate().split(("-"));
-        String currentSeason = startYear[0] + "/" + endYear[0];
-        getSupportActionBar().setTitle("\t"+competition.getName() + " - " + currentSeason);
+        startYear = competition.getCurrentSeason().getStartDate().split(("-"));
+        endYear = competition.getCurrentSeason().getEndDate().split(("-"));
+        currentSeason = startYear[0] + "/" + endYear[0];
+        getSupportActionBar().setTitle("\t" + competition.getName() + " - " + currentSeason);
 
-        if(competition.getId() == "2013" || competition.getId() == "2014" || competition.getId() == "2019" ||
-                competition.getId() == "2021") {
+        if (Integer.parseInt(competition.getId()) == 2013 || Integer.parseInt(competition.getId()) == 2014 ||
+                Integer.parseInt(competition.getId())== 2019 || Integer.parseInt(competition.getId()) == 2021) {
             tabLayout = findViewById(R.id.tabLayoutId);
             viewPager = findViewById(R.id.viewPagerId);
             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -77,7 +79,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             viewPagerAdapter.AddFragment(fragmentScorers, "SCORERS");
             viewPager.setAdapter(viewPagerAdapter);
             tabLayout.setupWithViewPager(viewPager);
-        }
+        } else {
             setContentView(R.layout.teams_competition);
             toolbar = findViewById(R.id.toolbar);
             setIconToolbar();
@@ -85,20 +87,21 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             startYear = competition.getCurrentSeason().getStartDate().split(("-"));
             endYear = competition.getCurrentSeason().getEndDate().split(("-"));
             currentSeason = startYear[0] + "/" + endYear[0];
-            getSupportActionBar().setTitle("\t"+competition.getName() + " - " + currentSeason);
+            getSupportActionBar().setTitle("\t" + competition.getName() + " - " + currentSeason);
 
             recyclerView = findViewById(R.id.teamsRecyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
             DataSource<TeamList> dataSource = new DataSource<>();
             try {
-                teamList = dataSource.getObjectfromJson(url+compId+"/teams", TeamList.class);
+                teamList = dataSource.getObjectfromJson(url + compId + "/teams", TeamList.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(this, teamList.getTeams());
             recyclerView.setAdapter(recyclerViewTeamAdapter);
+        }
     }
 
     public void setIconToolbar(){

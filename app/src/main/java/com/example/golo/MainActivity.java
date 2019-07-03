@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
     RecyclerViewAdapter adapter;
-    private Map<String,String> mapOfCompetitions = new HashMap<String, String>();
+    private Map<String, String> mapOfCompetitions = new HashMap<String, String>();
     private final String url = "http://api.football-data.org/v2/competitions";
 
     @Override
