@@ -6,4 +6,4 @@ Check out the screenshot inside the project.
 Work in progress...
 
 ## TO DO
- - [ ] - For the competitions that the API doesn't retrieve any standings, have to show the teams that are in that competition (possibly in another tab).
+ - [ ] - In Competition Activity you must be able to click on each item, and then, you will be able to see the matches of the team selected (and more info probably);
