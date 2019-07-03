@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:paddingTop="20dp">
@@ -11,11 +12,14 @@
     <TextView
             android:text="Team"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/scorerTeamId" android:paddingStart="130dp"/>
+            android:layout_height="wrap_content" android:id="@+id/scorerTeamId"
+            android:paddingStart="130dp"/>
     <TextView
             android:text="Nationality"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/scorerNationalityId" android:paddingStart="240dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/scorerNationalityId"
+            android:paddingStart="240dp"
     />
     <TextView
             android:text="Goals"

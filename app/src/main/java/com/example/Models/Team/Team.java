@@ -17,8 +17,8 @@ public class Team {
     @SerializedName("name")
     private String name;
 
-    @SerializedName("alias")
-    private String alias; //team's nickname
+    @SerializedName("tla")
+    private String tla; //team's nickname
 
     @SerializedName("email")
     private String email;
@@ -41,11 +41,17 @@ public class Team {
     @SerializedName("teamColours")
     private String teamColours; //list of team's colours
 
-    public Team(String id, Area area, String name, String alias, String email, String address, List<Player> squad, List<Competition> competitions, String teamColours, String urlImage, String website) {
+    @SerializedName("venue")
+    private String venue;
+
+    @SerializedName("founded")
+    private String founded;
+
+    public Team(String id, Area area, String name, String tla, String email, String address, List<Player> squad, List<Competition> competitions, String teamColours, String urlImage, String founded, String venue, String website) {
         this.id = id;
         this.area = area;
         this.name = name;
-        this.alias = alias;
+        this.tla = tla;
         this.email = email;
         this.address = address;
         this.squad = squad;
@@ -53,6 +59,8 @@ public class Team {
         this.teamColours = teamColours;
         this.urlImage = urlImage;
         this.website = website;
+        this.venue = venue;
+        this.founded = founded;
     }
 
     public Area getArea() { return area; }
@@ -65,7 +73,7 @@ public class Team {
 
     public String getId() { return id; }
 
-    public String getAlias() { return alias; }
+    public String getTla() { return tla; }
 
     public String getEmail() { return email; }
 
@@ -75,5 +83,9 @@ public class Team {
 
     public List<Competition> getCompetitions() { return competitions; }
 
+    public String getVenue() { return venue; }
+
     public String getTeamColours() { return teamColours; }
+
+    public String getFounded() { return founded; }
 }

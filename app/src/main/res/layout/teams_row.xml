@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:paddingTop="20dp">
+    <TextView
+            android:text="TeamName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/teamNameId"
+            android:textSize="24sp" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:text="Foundation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/teamFoundationId"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/teamNameId" android:paddingTop="15dp"/>
+    <TextView
+            android:text="Stadium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/teamStadiumId"
+            android:textSize="18sp"
+            android:layout_below="@+id/teamFoundationId"
+            android:layout_alignParentEnd="false" android:paddingBottom="20dp"/>
+</RelativeLayout>

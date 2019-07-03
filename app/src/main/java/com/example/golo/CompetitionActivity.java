@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Standing.Standing;
-import com.example.Models.Standing.StandingTeam;
+import com.example.Models.Team.TeamList;
+import com.example.golo.Fragments.FragmentAway;
+import com.example.golo.Fragments.FragmentHome;
+import com.example.golo.Fragments.FragmentScorers;
+import com.example.golo.Fragments.FragmentTotal;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CompetitionActivity extends AppCompatActivity implements RecyclerViewStandingAdapter.ItemClickListener {
     private String url = "http://api.football-data.org/v2/competitions/";
@@ -25,6 +26,10 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
     private ViewPagerAdapter viewPagerAdapter;
     private ViewPager viewPager;
     private RecyclerViewStandingAdapter adapter;
+    private RecyclerViewTeamAdapter recyclerViewTeamAdapter;
+    private RecyclerView recyclerView;
+    private TeamList teamList;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +47,61 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                 e.printStackTrace();
         }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setIconToolbar();
         setSupportActionBar(toolbar);
+
         String[] startYear = competition.getCurrentSeason().getStartDate().split(("-"));
         String[] endYear = competition.getCurrentSeason().getEndDate().split(("-"));
         String currentSeason = startYear[0] + "/" + endYear[0];
         getSupportActionBar().setTitle("\t"+competition.getName() + " - " + currentSeason);
 
+        if(competition.getId() == "2013" || competition.getId() == "2014" || competition.getId() == "2019" ||
+                competition.getId() == "2021") {
+            tabLayout = findViewById(R.id.tabLayoutId);
+            viewPager = findViewById(R.id.viewPagerId);
+            viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            Bundle bundle = new Bundle();
+            bundle.putString("compId", compId); //para enviar o ID da competição seleccionada para cada fragmento
+            FragmentTotal fragmentTotal = new FragmentTotal();
+            FragmentHome fragmentHome = new FragmentHome();
+            FragmentAway fragmentAway = new FragmentAway();
+            FragmentScorers fragmentScorers = new FragmentScorers();
+            fragmentTotal.setArguments(bundle); //envio para cada fragmento o ID
+            fragmentHome.setArguments(bundle);
+            fragmentAway.setArguments(bundle);
+            fragmentScorers.setArguments(bundle);
+            viewPagerAdapter.AddFragment(fragmentTotal, "TOTAL");
+            viewPagerAdapter.AddFragment(fragmentHome, "HOME");
+            viewPagerAdapter.AddFragment(fragmentAway, "AWAY");
+            viewPagerAdapter.AddFragment(fragmentScorers, "SCORERS");
+            viewPager.setAdapter(viewPagerAdapter);
+            tabLayout.setupWithViewPager(viewPager);
+        }
+            setContentView(R.layout.teams_competition);
+            toolbar = findViewById(R.id.toolbar);
+            setIconToolbar();
+            setSupportActionBar(toolbar);
+            startYear = competition.getCurrentSeason().getStartDate().split(("-"));
+            endYear = competition.getCurrentSeason().getEndDate().split(("-"));
+            currentSeason = startYear[0] + "/" + endYear[0];
+            getSupportActionBar().setTitle("\t"+competition.getName() + " - " + currentSeason);
+
+            recyclerView = findViewById(R.id.teamsRecyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            DataSource<TeamList> dataSource = new DataSource<>();
+            try {
+                teamList = dataSource.getObjectfromJson(url+compId+"/teams", TeamList.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(this, teamList.getTeams());
+            recyclerView.setAdapter(recyclerViewTeamAdapter);
+    }
+
+    public void setIconToolbar(){
         switch(competition.getArea().getName()){
             case "Portugal":toolbar.setLogo(R.drawable.ic_portugal); break;
             case "Spain":   toolbar.setLogo(R.drawable.ic_spain); break;
@@ -61,32 +114,9 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             case "World":
             case "Europe":  { toolbar.setLogo(R.drawable.ic_europe); break; }
         }
-
-        tabLayout = findViewById(R.id.tabLayoutId);
-        viewPager = findViewById(R.id.viewPagerId);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        Bundle bundle = new Bundle();
-        bundle.putString("compId", compId); //para enviar o ID da competição seleccionada para cada fragmento
-        FragmentTotal fragmentTotal = new FragmentTotal();
-        FragmentHome fragmentHome = new FragmentHome();
-        FragmentAway fragmentAway = new FragmentAway();
-        FragmentScorers fragmentScorers = new FragmentScorers();
-        fragmentTotal.setArguments(bundle); //envio para cada fragmento o ID
-        fragmentHome.setArguments(bundle);
-        fragmentAway.setArguments(bundle);
-        fragmentScorers.setArguments(bundle);
-        viewPagerAdapter.AddFragment(fragmentTotal,"TOTAL");
-        viewPagerAdapter.AddFragment(fragmentHome,"HOME");
-        viewPagerAdapter.AddFragment(fragmentAway,"AWAY");
-        viewPagerAdapter.AddFragment(fragmentScorers, "SCORERS");
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-
     }
-
     @Override
     public void onItemClick(View view, int position) {
-        Toast toast = Toast.makeText(getApplicationContext(),"OLA", Toast.LENGTH_LONG);
+        Toast.makeText(getApplicationContext(),"OLA", Toast.LENGTH_SHORT).show();
     }
 }
