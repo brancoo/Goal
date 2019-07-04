@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Standing.StandingTeam;
 
@@ -23,6 +24,15 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public RecyclerViewStandingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.standingrow, parent, false);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        viewHolder.textViewTeamName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mInflater.getContext(), "TEST CLICK", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return new RecyclerViewStandingAdapter.ViewHolder(view);
     }
 

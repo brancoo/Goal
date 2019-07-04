@@ -5,9 +5,10 @@ import com.example.Models.Competition.Competition;
 import com.example.Models.Player.Player;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Team {
+public class Team implements Serializable {
     @SerializedName("id")
     private String id;
 

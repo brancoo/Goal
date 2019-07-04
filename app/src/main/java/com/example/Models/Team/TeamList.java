@@ -4,9 +4,10 @@ import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionSeason;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TeamList {
+public class TeamList implements Serializable {
     @SerializedName("competition")
     private Competition competition;
 

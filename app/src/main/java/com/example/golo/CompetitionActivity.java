@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Standing.Standing;
-import com.example.Models.Standing.StandingTeam;
 import com.example.Models.Standing.StandingType;
 import com.example.Models.Team.TeamList;
 import com.example.golo.Fragments.FragmentAway;
@@ -23,7 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class CompetitionActivity extends AppCompatActivity implements RecyclerViewStandingAdapter.ItemClickListener {
+public class CompetitionActivity extends AppCompatActivity implements RecyclerViewStandingAdapter.ItemClickListener, RecyclerViewScorersAdapter.ItemClickListener,RecyclerViewTeamAdapter.ItemClickListener{
     private Competition competition;
     private TabLayout tabLayout;
     private ViewPagerAdapter viewPagerAdapter;
@@ -93,7 +92,6 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             tabLayout.setupWithViewPager(viewPager);
 
         } else { //caso não existam standings na API, mostra as equipas que disputam a competição
-
             setContentView(R.layout.teams_competition);
             setToolbarInfo();
             recyclerView = findViewById(R.id.teamsRecyclerView);
@@ -109,6 +107,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                         .show();
             }
             recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(this, teamList.getTeams());
+            recyclerViewTeamAdapter.setClickListener(this);
             recyclerView.setAdapter(recyclerViewTeamAdapter);
         }
     }
@@ -141,6 +140,6 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getApplicationContext(),"OLA", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"CLICK", Toast.LENGTH_SHORT).show();
     }
 }

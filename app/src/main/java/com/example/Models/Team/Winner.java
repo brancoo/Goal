@@ -2,7 +2,9 @@ package com.example.Models.Team;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Winner {
+import java.io.Serializable;
+
+public class Winner implements Serializable {
 
     @SerializedName("id")
     private String id;

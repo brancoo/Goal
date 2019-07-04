@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Player.Scorer;
 
@@ -24,6 +25,14 @@ public class RecyclerViewScorersAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public RecyclerViewScorersAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.scorers_row, parent, false);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        viewHolder.scorerName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mInflater.getContext(), "TEST CLICK", Toast.LENGTH_SHORT).show();
+            }
+        });
         return new RecyclerViewScorersAdapter.ViewHolder(view);
     }
 
