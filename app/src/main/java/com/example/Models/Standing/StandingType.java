@@ -2,9 +2,10 @@ package com.example.Models.Standing;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class StandingType {
+public class StandingType implements Serializable{
     @SerializedName("stage")
     private String stage;
 

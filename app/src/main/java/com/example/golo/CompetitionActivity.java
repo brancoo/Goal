@@ -3,6 +3,7 @@ package com.example.golo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -11,12 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Standing.Standing;
+import com.example.Models.Standing.StandingTeam;
+import com.example.Models.Standing.StandingType;
 import com.example.Models.Team.TeamList;
 import com.example.golo.Fragments.FragmentAway;
 import com.example.golo.Fragments.FragmentHome;
 import com.example.golo.Fragments.FragmentScorers;
 import com.example.golo.Fragments.FragmentTotal;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 public class CompetitionActivity extends AppCompatActivity implements RecyclerViewStandingAdapter.ItemClickListener {
     private Competition competition;
@@ -29,6 +34,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
     private Toolbar toolbar;
     private String[] startYear, endYear;
     private String currentSeason;
+    private Standing standing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,24 +50,37 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             DataSource<Competition> data = new DataSource<>();
             competition = data.getObjectfromJson(data.getUrl() + compId, Competition.class);
         } catch (Exception e) {
+            if(e.getMessage().equals("429"))
+                Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-        
         toolbar = findViewById(R.id.toolbar);
         setToolbarInfo();
 
         //caso a API retorne standings
-        if (Integer.parseInt(competition.getId()) == 2013 || Integer.parseInt(competition.getId()) == 2014 ||
-                Integer.parseInt(competition.getId())== 2019 || Integer.parseInt(competition.getId()) == 2021) {
+        if (Integer.parseInt(competition.getId()) == 2013 || Integer.parseInt(competition.getId())== 2019 ||
+                Integer.parseInt(competition.getId()) == 2021) {
             tabLayout = findViewById(R.id.tabLayoutId);
             viewPager = findViewById(R.id.viewPagerId);
             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+            DataSource<Standing> standingDataSource = new DataSource<>();
+            try {
+                standing = standingDataSource.getObjectfromJson(standingDataSource.getUrl()+compId+"/standings", Standing.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<StandingType> standingTeams = new ArrayList<>(standing.getStandings().size());
+            standingTeams.addAll(standing.getStandings());
+            extras.putSerializable("standings", standingTeams);
 
             FragmentTotal fragmentTotal = new FragmentTotal();
             FragmentHome fragmentHome = new FragmentHome();
             FragmentAway fragmentAway = new FragmentAway();
             FragmentScorers fragmentScorers = new FragmentScorers();
-            fragmentTotal.setArguments(extras); //envio para cada fragmento o ID da competição
+
+            fragmentTotal.setArguments(extras); //envio os standings para os fragments (já não faço request nos fragments!)
             fragmentHome.setArguments(extras);
             fragmentAway.setArguments(extras);
             fragmentScorers.setArguments(extras);
@@ -83,7 +102,11 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             try {
                 teamList = dataSource.getObjectfromJson(dataSource.getUrl() + compId + "/teams", TeamList.class);
             } catch (Exception e) {
-                e.printStackTrace();
+                new AlertDialog.Builder(this)
+                        .setTitle("Something gone wrong!")
+                        .setMessage(e.getMessage() + "\nCheck your internet connection")
+                        .setPositiveButton("Ok",null)
+                        .show();
             }
             recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(this, teamList.getTeams());
             recyclerView.setAdapter(recyclerViewTeamAdapter);
@@ -112,8 +135,10 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             case "Brazil":    toolbar.setLogo(R.drawable.ic_brazil); break;
             case "World":
             case "Europe":  { toolbar.setLogo(R.drawable.ic_europe); break; }
+            default: break;
         }
     }
+
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(getApplicationContext(),"OLA", Toast.LENGTH_SHORT).show();

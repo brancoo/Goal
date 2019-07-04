@@ -4,7 +4,9 @@ package com.example.Models.Standing;
 import com.example.Models.Team.Team;
 import com.google.gson.annotations.SerializedName;
 
-public class StandingTeam {
+import java.io.Serializable;
+
+public class StandingTeam implements Serializable {
     @SerializedName("team")
     private Team team;
 

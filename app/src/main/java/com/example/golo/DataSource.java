@@ -1,39 +1,48 @@
 package com.example.golo;
 
+import android.app.Application;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
-public class DataSource<T> {
+public class DataSource<T>{
     private final String API_token = "e251f2f69b2b4413aaba270a02148849";
     private String url = "http://api.football-data.org/v2/competitions/";
 
     public String getJsonfromURL(final String apiURL) throws Exception {
-                URL url = new URL(apiURL);
+        URL url = new URL(apiURL);
 
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection(); //opens a new connection with that URL
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("X-Auth-Token", API_token); //set a parameter("X-Auth-Token") with my API Token
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection(); //opens a new connection with that URL
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("X-Auth-Token", API_token); //set a parameter("X-Auth-Token") with my API Token
 
-                int status = connection.getResponseCode();
-                if (status == 200) { //if the connection was made sucessfully
-                    StringBuffer content = new StringBuffer();
-                    String inputLine;
+        int status = connection.getResponseCode();
+        if (status == 200) { //if the connection was made sucessfully
+            StringBuffer content = new StringBuffer();
+            String inputLine;
 
-                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                    while ((inputLine = in.readLine()) != null)
-                        content.append(inputLine).append("\n");
+            while ((inputLine = in.readLine()) != null)
+                content.append(inputLine).append("\n");
 
-                    in.close();
-                    return content.toString();
-                } else {
-                    throw new Exception("HTTP STATUS: " + status);
-                }
-            }
+            in.close();
+            return content.toString();
+        } else if(status == 429){
+            throw new Exception(String.valueOf(status));
+        }
+        else {
+            throw new Exception("HTTP STATUS: " + status);
+        }
+    }
+
 
     public T getObjectfromJson(final String apiURL, Class<T> myClass) throws Exception {
         String json;

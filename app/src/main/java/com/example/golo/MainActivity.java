@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -53,11 +54,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             for (Competition competition : compList.getAvailableCompetitions())
                 mapOfCompetitions.put(competition.getName(), competition.getId());
         } catch (Exception e) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Something gone wrong!")
-                    .setMessage(e.getMessage() + "\nCheck your internet connection")
-                    .setPositiveButton("Ok",null)
-                    .show();
+            if(e.getMessage().equals("429"))
+                Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 
