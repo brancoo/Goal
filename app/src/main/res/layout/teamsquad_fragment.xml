@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="108dp">
+        <TextView
+                android:text="Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/playerNameId" android:textSize="14sp"/>
+        <TextView
+                android:text="Position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/playerPositionId"
+                android:layout_toRightOf="@+id/playerNameId" android:textSize="14sp"/>
+        <TextView
+                android:text="Nationality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/playerNationalityId"
+                android:layout_toRightOf="@+id/playerPositionId" android:textSize="14sp"/>
+        <TextView
+                android:text="Role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/playerRoleId" android:textSize="14sp"
+                android:layout_toRightOf="@+id/playerNationalityId"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/squadRecyclerViewId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

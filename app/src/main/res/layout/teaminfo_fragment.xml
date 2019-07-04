@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+<RelativeLayout
+        android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+            android:text="Alias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/aliasId" android:textSize="30sp"
+            android:layout_marginTop="150dp"/>
+    <TextView
+            android:text="Foundation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/foundationId" android:layout_below="@+id/aliasId"
+            android:textSize="30sp"/>
+    <TextView
+            android:text="ActiveCompetitions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/activeCompetitionsId"
+            android:layout_below="@+id/foundationId" android:textSize="30sp"/>
+    <TextView
+            android:text="Stadium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/stadiumId"
+            android:layout_below="@+id/activeCompetitionsId" android:textSize="30sp"/>
+    <TextView
+            android:text="TeamColours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/teamColoursId" android:layout_below="@+id/stadiumId"
+            android:textSize="30sp"/>
+    <TextView
+            android:text="Website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/websiteId" android:layout_below="@+id/teamColoursId"
+            android:textSize="30sp"/>
+</RelativeLayout>
+</LinearLayout>

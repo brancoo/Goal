@@ -1,6 +1,7 @@
 package com.example.golo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,21 +25,12 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public RecyclerViewStandingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.standingrow, parent, false);
-        final ViewHolder viewHolder = new ViewHolder(view);
-
-        viewHolder.textViewTeamName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mInflater.getContext(), "TEST CLICK", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         return new RecyclerViewStandingAdapter.ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(RecyclerViewStandingAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerViewStandingAdapter.ViewHolder holder, int position) {
         holder.textViewTeamName.setText(standingTeams.get(position).getTeam().getName());
         holder.textViewTeamPoints.setText(standingTeams.get(position).getPoints());
         holder.textViewTeamWins.setText(standingTeams.get(position).getWon());
@@ -47,6 +39,16 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
         holder.textViewTeamGoalsScored.setText(standingTeams.get(position).getGoalsFor());
         holder.textViewTeamGoalsAgainst.setText(standingTeams.get(position).getGoalsAgainst());
         holder.textViewTeamGoalsDifference.setText(standingTeams.get(position).getGoalDifference());
+
+        holder.textViewTeamName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TeamActivity.class);
+                intent.putExtra("teamId", standingTeams.get(holder.getAdapterPosition()).getTeam().getId());
+                intent.putExtra("teamName", standingTeams.get(holder.getAdapterPosition()).getTeam().getName());
+                mInflater.getContext().startActivity(intent);
+            }
+        });
     }
 
     // total number of rows
@@ -87,7 +89,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     // convenience method for getting data at click position
     String getItem(int id) {
-        return standingTeams.get(id).getTeam().getName();
+        return standingTeams.get(id).getTeam().getId();
     }
 
     // allows clicks events to be caught

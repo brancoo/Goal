@@ -53,7 +53,6 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                 Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-        toolbar = findViewById(R.id.toolbar);
         setToolbarInfo();
 
         //caso a API retorne standings
@@ -97,6 +96,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             recyclerView = findViewById(R.id.teamsRecyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             DataSource<TeamList> dataSource = new DataSource<>();
+
             try {
                 teamList = dataSource.getObjectfromJson(dataSource.getUrl() + compId + "/teams", TeamList.class);
             } catch (Exception e) {

@@ -7,7 +7,7 @@
             android:text="TeamName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/teamNameId"
-            android:textSize="24sp" android:layout_centerHorizontal="true"/>
+            android:textSize="24sp" android:layout_centerHorizontal="true" android:textStyle="bold"/>
     <TextView
             android:text="Foundation"
             android:layout_width="wrap_content"
