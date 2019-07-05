@@ -2,7 +2,9 @@ package com.example.Models.Area;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Area {
+import java.io.Serializable;
+
+public class Area implements Serializable {
     @SerializedName("id")
     private String id;
 

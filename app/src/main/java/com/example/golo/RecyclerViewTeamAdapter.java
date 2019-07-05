@@ -1,6 +1,7 @@
 package com.example.golo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,20 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(RecyclerViewTeamAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerViewTeamAdapter.ViewHolder holder, int position) {
         holder.teamName.setText(mData.get(position).getName());
         holder.teamFoundation.setText(stringResource + mData.get(position).getFounded());
         holder.teamStadium.setText(mData.get(position).getVenue());
+
+        holder.teamName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TeamActivity.class);
+                intent.putExtra("teamId", mData.get(holder.getAdapterPosition()).getId());
+                intent.putExtra("teamName", mData.get(holder.getAdapterPosition()).getName());
+                mInflater.getContext().startActivity(intent);
+            }
+        });
     }
 
     // total number of rows

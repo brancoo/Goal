@@ -30,17 +30,17 @@ public class Team implements Serializable {
     @SerializedName("squad")
     private List<Player> squad; //list of team's players
 
-    @SerializedName("competitions")
-    private List<Competition> competitions; //list of team's competitions
+    @SerializedName("activeCompetitions")
+    private List<Competition> activeCompetitions; //list of team's competitions
 
-    @SerializedName("urlImage")
-    private String urlImage;
+    @SerializedName("crestUrl")
+    private String crestUrl;
 
     @SerializedName("website")
     private String website;
 
-    @SerializedName("teamColours")
-    private String teamColours; //list of team's colours
+    @SerializedName("clubColors")
+    private String clubColors; //list of team's colours
 
     @SerializedName("venue")
     private String venue;
@@ -48,7 +48,7 @@ public class Team implements Serializable {
     @SerializedName("founded")
     private String founded;
 
-    public Team(String id, Area area, String name, String tla, String email, String address, List<Player> squad, List<Competition> competitions, String teamColours, String urlImage, String founded, String venue, String website) {
+    public Team(String id, Area area, String name, String tla, String email, String address, List<Player> squad, List<Competition> activeCompetitions, String clubColors, String crestUrl, String founded, String venue, String website) {
         this.id = id;
         this.area = area;
         this.name = name;
@@ -56,9 +56,9 @@ public class Team implements Serializable {
         this.email = email;
         this.address = address;
         this.squad = squad;
-        this.competitions = competitions;
-        this.teamColours = teamColours;
-        this.urlImage = urlImage;
+        this.activeCompetitions = activeCompetitions;
+        this.clubColors = clubColors;
+        this.crestUrl = crestUrl;
         this.website = website;
         this.venue = venue;
         this.founded = founded;
@@ -66,7 +66,7 @@ public class Team implements Serializable {
 
     public Area getArea() { return area; }
 
-    public String getUrlImage() { return urlImage; }
+    public String getCrestUrl() { return crestUrl; }
 
     public String getWebsite() { return website;}
 
@@ -82,11 +82,11 @@ public class Team implements Serializable {
 
     public List<Player> getSquad() { return squad; }
 
-    public List<Competition> getCompetitions() { return competitions; }
+    public List<Competition> getActiveCompetitions() { return activeCompetitions; }
 
     public String getVenue() { return venue; }
 
-    public String getTeamColours() { return teamColours; }
+    public String getClubColors() { return clubColors; }
 
     public String getFounded() { return founded; }
 }

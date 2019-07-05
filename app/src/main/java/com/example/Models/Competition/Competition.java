@@ -3,9 +3,10 @@ package com.example.Models.Competition;
 import com.example.Models.Area.Area;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Competition {
+public class Competition implements Serializable {
     @SerializedName("id")
     private String id;
 
