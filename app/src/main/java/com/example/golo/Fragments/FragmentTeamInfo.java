@@ -1,8 +1,7 @@
 package com.example.golo.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.Models.Team.Team;
 import com.example.golo.R;
+import com.example.golo.Utils;
+import com.pixplicity.sharp.SvgParseException;
 import com.squareup.picasso.Picasso;
+import org.w3c.dom.Text;
 
-import java.io.File;
+import static android.graphics.Color.rgb;
 
 public class FragmentTeamInfo extends Fragment {
     private View v;
@@ -31,8 +33,24 @@ public class FragmentTeamInfo extends Fragment {
         v = inflater.inflate(R.layout.teaminfo_fragment, container, false);
         team = (Team) getArguments().getSerializable("team");
 
+
         ImageView teamLogo = v.findViewById(R.id.teamLogoId);
-        Picasso.get().load(team.getCrestUrl()).into(teamLogo);
+        String logoUrl = team.getCrestUrl();
+
+        if(logoUrl != null){
+            if(logoUrl.contains(".png")) {
+                Picasso.get().load(team.getCrestUrl()).fit().noFade().into(teamLogo);
+                teamLogo.setPadding(0, 100, 0, 0);
+            }
+            else if(logoUrl.contains(".svg")) {
+                try {
+                    Utils.fetchSvg(getContext(), team.getCrestUrl(), teamLogo);
+                    teamLogo.setPadding(0, 100, 0, 0);
+                }catch (SvgParseException e){
+                    //Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show(); DOESN'T WORK
+                }
+            }
+        }
 
         TextView teamAlias = v.findViewById(R.id.teamAliasId);
         teamAlias.setText("Alias: " + team.getTla());
@@ -48,11 +66,22 @@ public class FragmentTeamInfo extends Fragment {
             teamActiveCompetitions.setText("Active Competition(s): "+ team.getActiveCompetitions().get(i).getName());
         }
 
+        String[] colours = team.getClubColors().split(" / ");
+        TextView teamColoursFirst = v.findViewById(R.id.teamColoursFirstId);
+        teamColoursFirst.setText("Main Colours: " + colours[0] + " - ");
+
+        TextView teamColoursSecond = v.findViewById(R.id.teamColoursSecondId);
+        teamColoursSecond.setText(colours[1]);
+
+        if(colours.length == 3){
+            TextView teamColoursThird = v.findViewById(R.id.teamColoursThirdId);
+            teamColoursThird.setVisibility(TextView.VISIBLE);
+            teamColoursThird.setText(" - " + colours[2]);
+        }
+
         TextView teamStadium = v.findViewById(R.id.teamStadiumId);
         teamStadium.setText("Stadium: " + team.getVenue());
 
-        TextView teamColours = v.findViewById(R.id.teamColoursId);
-        teamColours.setText("Team Colours: "+ team.getClubColors());
 
         TextView teamWebsite = v.findViewById(R.id.teamWebsiteId);
         teamWebsite.setText("Team's Website: " + team.getWebsite());

@@ -5,12 +5,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/teamLogoId"
-            android:layout_marginRight="150dp" android:layout_marginLeft="150dp" android:paddingTop="100dp"
-            android:layout_marginTop="30dp" android:layout_gravity="center"/>
     <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -19,37 +13,64 @@
                 android:text="Alias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/teamAliasId" android:textSize="15sp"
-                android:paddingBottom="25dp" android:layout_marginTop="50dp" android:textStyle="bold"/>
+                android:paddingBottom="25dp" android:layout_marginTop="350dp" android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
+        <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/teamLogoId"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"/>
         <TextView
                 android:text="Foundation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/teamFoundationId"
                 android:layout_below="@+id/teamAliasId"
-                android:textSize="15sp" android:paddingBottom="25dp" android:textStyle="bold"/>
+                android:textSize="15sp" android:paddingBottom="25dp" android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
         <TextView
                 android:text="ActiveCompetitions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/teamActiveCompetitionsId"
                 android:layout_below="@+id/teamFoundationId" android:textSize="15sp" android:paddingBottom="25dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" android:layout_centerHorizontal="true"/>
         <TextView
                 android:text="Stadium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/teamStadiumId"
                 android:layout_below="@+id/teamActiveCompetitionsId" android:textSize="15sp"
-                android:paddingBottom="25dp" android:textStyle="bold"/>
+                android:paddingBottom="25dp" android:textStyle="bold" android:layout_centerHorizontal="true"/>
         <TextView
-                android:text="TeamColours"
+                android:text="Color1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/teamColoursId"
+                android:layout_height="wrap_content" android:id="@+id/teamColoursFirstId"
                 android:layout_below="@+id/teamStadiumId"
-                android:textSize="15sp" android:paddingBottom="25dp" android:textStyle="bold"/>
+                android:textSize="15sp" android:textStyle="bold"
+                android:paddingBottom="25dp"
+                android:layout_centerHorizontal="false" android:layout_marginStart="120dp"/>
+        <TextView
+                android:text="Color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/teamColoursSecondId"
+                android:layout_centerHorizontal="false"
+                android:layout_below="@+id/teamStadiumId" android:paddingBottom="25dp"
+                android:layout_toRightOf="@+id/teamColoursFirstId"/>
+        <TextView
+                android:text="Color3"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/teamColoursThirdId"
+                android:layout_below="@+id/teamStadiumId" android:layout_toRightOf="@+id/teamColoursSecondId"
+                android:textStyle="bold" android:paddingBottom="25dp"/>
         <TextView
                 android:text="Website"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/teamWebsiteId"
-                android:layout_below="@+id/teamColoursId"
+                android:layout_below="@+id/teamColoursFirstId"
                 android:autoLink="web"
-                android:textSize="15sp" android:paddingBottom="25dp" android:textStyle="bold|italic"/>
+                android:textSize="15sp" android:paddingBottom="25dp" android:textStyle="bold|italic"
+                android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 </LinearLayout>
