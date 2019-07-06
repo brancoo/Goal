@@ -1,11 +1,14 @@
 package com.example.golo.Fragments;
 
+import android.net.ParseException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,6 +17,10 @@ import com.example.golo.R;
 import com.example.golo.Utils;
 import com.pixplicity.sharp.SvgParseException;
 import com.squareup.picasso.Picasso;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 public class FragmentTeamInfo extends Fragment {
     private View v;
@@ -31,23 +38,25 @@ public class FragmentTeamInfo extends Fragment {
 
 
         ImageView teamLogo = v.findViewById(R.id.teamLogoId);
+        teamLogo.setVisibility(ImageView.INVISIBLE);
         String logoUrl = team.getCrestUrl();
 
         if(logoUrl != null){
-            if(logoUrl.contains(".png")) {
-                Picasso.get().load(team.getCrestUrl()).fit().noFade().into(teamLogo);
-                teamLogo.setPadding(0, 100, 0, 0);
+            if(logoUrl.contains(".svg")) {
+                Utils.fetchSvg(getContext(), team.getCrestUrl(), teamLogo);
+                teamLogo.setVisibility(ImageView.VISIBLE);
             }
-            else if(logoUrl.contains(".svg")) {
-                try {
-                    Utils.fetchSvg(getContext(), team.getCrestUrl(), teamLogo);
-                    teamLogo.setPadding(0, 100, 0, 0);
-                }catch (SvgParseException e){
-                    //Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show(); DOESN'T WORK
-                }
+            else if(logoUrl.contains(".png")) {
+                teamLogo.setVisibility(ImageView.VISIBLE);
+                Picasso.get().load(team.getCrestUrl()).fit().noFade().into(teamLogo);
             }
         }
 
+        if(teamLogo.getVisibility() == View.INVISIBLE){
+            Toast.makeText(inflater.getContext(),"NAO FOI POSSIVEL CARREGAR IMAGEM", Toast.LENGTH_LONG).show();
+        }
+
+        teamLogo.setPadding(0, 100, 0, 0);
         TextView teamAlias = v.findViewById(R.id.teamAliasId);
         teamAlias.setText("Alias: " + team.getTla());
 
@@ -62,22 +71,23 @@ public class FragmentTeamInfo extends Fragment {
             teamActiveCompetitions.setText("Active Competition(s): "+ team.getActiveCompetitions().get(i).getName());
         }
 
-        String[] colours = team.getClubColors().split(" / ");
-        TextView teamColoursFirst = v.findViewById(R.id.teamColoursFirstId);
-        teamColoursFirst.setText("Main Colours: " + colours[0] + " - ");
+        if(team.getClubColors() != null) {
+            String[] colours = team.getClubColors().split(" / ");
+            TextView teamColoursFirst = v.findViewById(R.id.teamColoursFirstId);
+            teamColoursFirst.setText("Main Colours: " + colours[0] + " - ");
 
-        TextView teamColoursSecond = v.findViewById(R.id.teamColoursSecondId);
-        teamColoursSecond.setText(colours[1]);
+            TextView teamColoursSecond = v.findViewById(R.id.teamColoursSecondId);
+            teamColoursSecond.setText(colours[1]);
 
-        if(colours.length == 3){
-            TextView teamColoursThird = v.findViewById(R.id.teamColoursThirdId);
-            teamColoursThird.setVisibility(TextView.VISIBLE);
-            teamColoursThird.setText(" - " + colours[2]);
+            if (colours.length == 3) {
+                TextView teamColoursThird = v.findViewById(R.id.teamColoursThirdId);
+                teamColoursThird.setVisibility(TextView.VISIBLE);
+                teamColoursThird.setText(" - " + colours[2]);
+            }
         }
 
         TextView teamStadium = v.findViewById(R.id.teamStadiumId);
         teamStadium.setText("Stadium: " + team.getVenue());
-
 
         TextView teamWebsite = v.findViewById(R.id.teamWebsiteId);
         teamWebsite.setText("Team's Website: " + team.getWebsite());

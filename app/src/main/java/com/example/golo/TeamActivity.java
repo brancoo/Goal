@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -39,6 +40,8 @@ public class TeamActivity extends AppCompatActivity {
         try {
             team = dataSource.getObjectfromJson("http://api.football-data.org/v2/teams/"+extras.getString("teamId"),Team.class);
         } catch (Exception e) {
+            if(e.getMessage().equals("429"))
+                Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 

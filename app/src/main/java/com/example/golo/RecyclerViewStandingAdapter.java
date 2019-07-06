@@ -2,6 +2,7 @@ package com.example.golo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(final RecyclerViewStandingAdapter.ViewHolder holder, int position) {
+        holder.textViewTeamName.setMovementMethod(new ScrollingMovementMethod());
         holder.textViewTeamName.setText(standingTeams.get(position).getTeam().getName());
         holder.textViewTeamPoints.setText(standingTeams.get(position).getPoints());
         holder.textViewTeamWins.setText(standingTeams.get(position).getWon());

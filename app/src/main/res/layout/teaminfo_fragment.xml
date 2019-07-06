@@ -41,7 +41,6 @@
                 android:layout_below="@+id/teamActiveCompetitionsId" android:textSize="15sp"
                 android:paddingBottom="25dp" android:textStyle="bold" android:layout_centerHorizontal="true"/>
         <TextView
-                android:text="Color1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/teamColoursFirstId"
                 android:layout_below="@+id/teamStadiumId"
@@ -49,7 +48,6 @@
                 android:paddingBottom="25dp"
                 android:layout_centerHorizontal="false" android:layout_marginStart="120dp"/>
         <TextView
-                android:text="Color2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

@@ -4,4 +4,4 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary" android:id="@+id/toolbar"
             android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"/>
+            android:theme="@style/CustomTheme"/>

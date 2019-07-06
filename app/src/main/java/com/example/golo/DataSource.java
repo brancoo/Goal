@@ -36,7 +36,7 @@ public class DataSource<T>{
             in.close();
             return content.toString();
         } else if(status == 429){
-            throw new Exception(String.valueOf(status));
+            throw new Exception("429");
         }
         else {
             throw new Exception("HTTP STATUS: " + status);

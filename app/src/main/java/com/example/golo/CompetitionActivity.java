@@ -66,6 +66,8 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             try {
                 standing = standingDataSource.getObjectfromJson(standingDataSource.getUrl()+compId+"/standings", Standing.class);
             } catch (Exception e) {
+                if(e.getMessage().equals("429"))
+                    Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
@@ -100,11 +102,9 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             try {
                 teamList = dataSource.getObjectfromJson(dataSource.getUrl() + compId + "/teams", TeamList.class);
             } catch (Exception e) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Something gone wrong!")
-                        .setMessage(e.getMessage() + "\nCheck your internet connection")
-                        .setPositiveButton("Ok",null)
-                        .show();
+                if(e.getMessage().equals("429"))
+                    Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
             }
             recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(this, teamList.getTeams());
             recyclerViewTeamAdapter.setClickListener(this);
@@ -140,6 +140,6 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getApplicationContext(),"CLICK", Toast.LENGTH_SHORT).show();
+
     }
 }
