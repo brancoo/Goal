@@ -6,26 +6,35 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_marginTop="108dp">
+            android:layout_height="wrap_content" android:layout_marginTop="130dp">
         <TextView
                 android:text="Name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/playerNameId" android:textSize="14sp"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/playerNameId"
+                android:textSize="14sp"
+                />
         <TextView
                 android:text="Position"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/playerPositionId"
-                android:layout_toRightOf="@+id/playerNameId" android:textSize="14sp"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/playerPositionId"
+                android:textSize="14sp"
+                android:paddingStart="150dp"/>
         <TextView
                 android:text="Nationality"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/playerNationalityId"
-                android:layout_toRightOf="@+id/playerPositionId" android:textSize="14sp"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/playerNationalityId"
+                android:textSize="14sp"
+                android:paddingStart="240dp"/>
         <TextView
                 android:text="Role"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/playerRoleId" android:textSize="14sp"
-                android:layout_toRightOf="@+id/playerNationalityId"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/playerRoleId"
+                android:textSize="14sp"
+                android:paddingStart="360dp"/>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

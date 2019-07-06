@@ -8,11 +8,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+import com.example.Models.Player.Player;
+import com.example.Models.Standing.StandingType;
 import com.example.Models.Team.Team;
 import com.example.golo.Fragments.FragmentTeamInfo;
 import com.example.golo.Fragments.FragmentTeamMatches;
 import com.example.golo.Fragments.FragmentTeamSquad;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 public class TeamActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -47,8 +51,12 @@ public class TeamActivity extends AppCompatActivity {
         fragmentTeamInfo.setArguments(extras);
 
         FragmentTeamSquad fragmentTeamSquad = new FragmentTeamSquad();
-        FragmentTeamMatches fragmentTeamMatches = new FragmentTeamMatches();
+        ArrayList<Player> teamSquad = new ArrayList<>(team.getSquad().size());
+        teamSquad.addAll(team.getSquad());
+        extras.putSerializable("teamSquad", teamSquad);
+        fragmentTeamSquad.setArguments(extras);
 
+        FragmentTeamMatches fragmentTeamMatches = new FragmentTeamMatches();
         teamViewPagerAdapter.AddFragment(fragmentTeamInfo, "TEAM INFO");
         teamViewPagerAdapter.AddFragment(fragmentTeamSquad, "SQUAD");
         teamViewPagerAdapter.AddFragment(fragmentTeamMatches,"MATCHES");

@@ -1,6 +1,5 @@
 package com.example.golo.Fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +14,6 @@ import com.example.golo.R;
 import com.example.golo.Utils;
 import com.pixplicity.sharp.SvgParseException;
 import com.squareup.picasso.Picasso;
-import org.w3c.dom.Text;
-
-import static android.graphics.Color.rgb;
 
 public class FragmentTeamInfo extends Fragment {
     private View v;
