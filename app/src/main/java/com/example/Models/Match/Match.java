@@ -1,19 +1,15 @@
 package com.example.Models.Match;
 
-import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionSeason;
 import com.example.Models.Referee.Referee;
-import com.example.Models.Team.Team;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Match {
+public class Match implements Serializable {
     @SerializedName("id")
     private String id;
-
-    @SerializedName("competition")
-    private Competition competition;
 
     @SerializedName("season")
     private CompetitionSeason season;
@@ -24,9 +20,6 @@ public class Match {
     @SerializedName("status")
     private String status;
 
-    @SerializedName("venue")
-    private String venue;
-
     @SerializedName("matchday")
     private String matchday;
 
@@ -36,25 +29,23 @@ public class Match {
     @SerializedName("group")
     private String group;
 
-    @SerializedName("homeTeam")
-    private Team homeTeam;
-
-    @SerializedName("awayTeam")
-    private Team awayTeam;
-
     @SerializedName("score")
     private MatchScore score;
+
+    @SerializedName("homeTeam")
+    private MatchTeam homeTeam;
+
+    @SerializedName("awayTeam")
+    private MatchTeam awayTeam;
 
     @SerializedName("referees")
     private List<Referee> referees;
 
-    public Match(String id, Competition competition, CompetitionSeason season, String utcDate, String status, String venue, String matchday, String stage, String group, Team homeTeam, Team awayTeam, MatchScore score, List<Referee> referees) {
+    public Match(String id, CompetitionSeason season, String utcDate, String status, String matchday, String stage, String group, MatchTeam homeTeam, MatchTeam awayTeam, MatchScore score, List<Referee> referees) {
         this.id = id;
-        this.competition = competition;
         this.season = season;
         this.utcDate = utcDate;
         this.status = status;
-        this.venue = venue;
         this.matchday = matchday;
         this.stage = stage;
         this.group = group;
@@ -88,15 +79,11 @@ public class Match {
         return referees;
     }
 
-    public Competition getCompetition() {
-        return competition;
-    }
-
-    public Team getHomeTeam() {
+    public MatchTeam getHomeTeam() {
         return homeTeam;
     }
 
-    public Team getAwayTeam() {
+    public MatchTeam getAwayTeam() {
         return awayTeam;
     }
 
@@ -107,25 +94,4 @@ public class Match {
     public String getUtcDate() {
         return utcDate;
     }
-
-
-    @Override
-    public String toString() {
-        return "Match{" +
-                "id='" + id + '\'' +
-                ", competition=" + competition +
-                ", season=" + season +
-                ", utcDate='" + utcDate + '\'' +
-                ", status='" + status + '\'' +
-                ", venue='" + venue + '\'' +
-                ", matchday='" + matchday + '\'' +
-                ", stage='" + stage + '\'' +
-                ", group='" + group + '\'' + '\'' +
-                ", homeTeam=" + homeTeam.getName() +
-                ", awayTeam=" + awayTeam.getName() +
-                ", score=" + score +
-                ", referees=" + referees +
-                '}';
-    }
-
 }

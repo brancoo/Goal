@@ -3,7 +3,6 @@ package com.example.golo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -74,6 +73,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             ArrayList<StandingType> standingTeams = new ArrayList<>(standing.getStandings().size());
             standingTeams.addAll(standing.getStandings());
             extras.putSerializable("standings", standingTeams);
+            extras.putString("compId", compId);
 
             FragmentTotal fragmentTotal = new FragmentTotal();
             FragmentHome fragmentHome = new FragmentHome();
@@ -106,7 +106,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                     Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-            recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(this, teamList.getTeams());
+            recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(this, teamList.getTeams(), compId);
             recyclerViewTeamAdapter.setClickListener(this);
             recyclerView.setAdapter(recyclerViewTeamAdapter);
         }

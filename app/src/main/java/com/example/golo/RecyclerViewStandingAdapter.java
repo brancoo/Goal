@@ -16,10 +16,12 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     private LayoutInflater mInflater;
     private RecyclerViewStandingAdapter.ItemClickListener mClickListener;
     private List<StandingTeam> standingTeams;
+    private String compId;
 
-    public RecyclerViewStandingAdapter(Context context, List<StandingTeam> standingTeams) {
+    public RecyclerViewStandingAdapter(Context context, List<StandingTeam> standingTeams, String compId) {
         this.mInflater = LayoutInflater.from(context);
         this.standingTeams = standingTeams;
+        this.compId = compId;
     }
 
     @Override
@@ -47,6 +49,7 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
                 Intent intent = new Intent(v.getContext(), TeamActivity.class);
                 intent.putExtra("teamId", standingTeams.get(holder.getAdapterPosition()).getTeam().getId());
                 intent.putExtra("teamName", standingTeams.get(holder.getAdapterPosition()).getTeam().getName());
+                intent.putExtra("compId", compId);
                 mInflater.getContext().startActivity(intent);
             }
         });

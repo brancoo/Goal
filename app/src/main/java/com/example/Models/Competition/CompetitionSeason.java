@@ -3,7 +3,9 @@ package com.example.Models.Competition;
 import com.example.Models.Team.Winner;
 import com.google.gson.annotations.SerializedName;
 
-public class CompetitionSeason {
+import java.io.Serializable;
+
+public class CompetitionSeason implements Serializable {
     @SerializedName("id")
     private String id;
 

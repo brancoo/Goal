@@ -2,9 +2,10 @@ package com.example.Models.Match;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MatchList {
+public class MatchList implements Serializable {
     @SerializedName("matches")
     private List<Match> matches;
 

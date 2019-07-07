@@ -27,7 +27,8 @@ public class FragmentTotal extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceBundle){
         view = inflater.inflate(R.layout.total_fragment, container, false);
         recyclerView = view.findViewById(R.id.totalStandingRecyclerView);
-        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(),standingTeamList.get(0).getTable());
+        String compId = getArguments().getString("compId");
+        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(),standingTeamList.get(0).getTable(), compId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerViewStandingAdapter);
         return view;

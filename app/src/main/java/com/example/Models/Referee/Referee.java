@@ -2,7 +2,9 @@ package com.example.Models.Referee;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Referee {
+import java.io.Serializable;
+
+public class Referee implements Serializable {
     @SerializedName("id")
     private String id;
 

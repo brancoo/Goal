@@ -27,7 +27,8 @@ public class FragmentAway extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceBundle){
         view = inflater.inflate(R.layout.away_fragment, container, false);
         recyclerView = view.findViewById(R.id.awayStandingRecyclerView);
-        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(),standingTeamList.get(2).getTable());
+        String compId = getArguments().getString("compId");
+        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(),standingTeamList.get(2).getTable(), compId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerViewStandingAdapter);
         return view;

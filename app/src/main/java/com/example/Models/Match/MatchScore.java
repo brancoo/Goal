@@ -2,7 +2,9 @@ package com.example.Models.Match;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MatchScore {
+import java.io.Serializable;
+
+public class MatchScore implements Serializable {
     @SerializedName("winner")
     private String winner;
 

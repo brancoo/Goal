@@ -1,8 +1,6 @@
 package com.example.golo.Fragments;
 
-import android.net.ParseException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.Models.Team.Team;
 import com.example.golo.R;
 import com.example.golo.Utils;
-import com.pixplicity.sharp.SvgParseException;
 import com.squareup.picasso.Picasso;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 
 public class FragmentTeamInfo extends Fragment {
     private View v;
@@ -35,7 +28,6 @@ public class FragmentTeamInfo extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.teaminfo_fragment, container, false);
         team = (Team) getArguments().getSerializable("team");
-
 
         ImageView teamLogo = v.findViewById(R.id.teamLogoId);
         teamLogo.setVisibility(ImageView.INVISIBLE);

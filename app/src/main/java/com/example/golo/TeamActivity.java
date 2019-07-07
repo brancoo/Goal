@@ -2,15 +2,13 @@ package com.example.golo;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+import com.example.Models.Match.Match;
+import com.example.Models.Match.MatchList;
 import com.example.Models.Player.Player;
-import com.example.Models.Standing.StandingType;
 import com.example.Models.Team.Team;
 import com.example.golo.Fragments.FragmentTeamInfo;
 import com.example.golo.Fragments.FragmentTeamMatches;
@@ -25,6 +23,8 @@ public class TeamActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Toolbar toolbar;
     private Team team;
+    private String compId;
+    private MatchList matchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,8 @@ public class TeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team);
 
         Bundle extras = getIntent().getExtras();
+        compId = extras.getString("compId");
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("\t" + extras.getString("teamName"));
@@ -39,6 +41,15 @@ public class TeamActivity extends AppCompatActivity {
         DataSource<Team> dataSource = new DataSource<>();
         try {
             team = dataSource.getObjectfromJson("http://api.football-data.org/v2/teams/"+extras.getString("teamId"),Team.class);
+        } catch (Exception e) {
+            if(e.getMessage().equals("429"))
+                Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        DataSource<MatchList> dataMatches = new DataSource<>();
+        try {
+            matchList = dataMatches.getObjectfromJson(dataMatches.getUrl()+extras.getString("compId")+"/matches",MatchList.class);
         } catch (Exception e) {
             if(e.getMessage().equals("429"))
                 Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
@@ -60,6 +71,15 @@ public class TeamActivity extends AppCompatActivity {
         fragmentTeamSquad.setArguments(extras);
 
         FragmentTeamMatches fragmentTeamMatches = new FragmentTeamMatches();
+        ArrayList<Match> matches = new ArrayList<>();
+        for(int i = 0; i < matchList.getMatches().size(); i++){
+            if(matchList.getMatches().get(i).getAwayTeam().getName().equals(team.getName()) || matchList.getMatches().get(i).getHomeTeam().getName().equals(team.getName()))
+                matches.add(matchList.getMatches().get(i));
+        }
+        Log.d("ERRO", "ERRO: " + matches.get(0).getScore().getFullTime().getHomeTeam());
+        extras.putSerializable("teamMatches", matches);
+        fragmentTeamMatches.setArguments(extras);
+
         teamViewPagerAdapter.AddFragment(fragmentTeamInfo, "TEAM INFO");
         teamViewPagerAdapter.AddFragment(fragmentTeamSquad, "SQUAD");
         teamViewPagerAdapter.AddFragment(fragmentTeamMatches,"MATCHES");
@@ -69,5 +89,6 @@ public class TeamActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.info_icon);
         tabLayout.getTabAt(1).setIcon(R.drawable.squad_icon);
         tabLayout.getTabAt(2).setIcon(R.drawable.matches_icon);
+
     }
 }

@@ -28,7 +28,8 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceBundle){
         view = inflater.inflate(R.layout.home_fragment, container, false);
         recyclerView = view.findViewById(R.id.homeStandingRecyclerView);
-        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(), standingTeamList.get(1).getTable());
+        String compId = getArguments().getString("compId");
+        RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(), standingTeamList.get(1).getTable(), compId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerViewStandingAdapter);
         return view;

@@ -2,8 +2,10 @@ package com.example.Models.Match;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MatchTime {
-    @SerializedName("homeTean")
+import java.io.Serializable;
+
+public class MatchTime implements Serializable {
+    @SerializedName("homeTeam")
     private String homeTeam;
 
     @SerializedName("awayTeam")
@@ -14,9 +16,7 @@ public class MatchTime {
         this.awayTeam = awayTeam;
     }
 
-    public String getHomeTeam() {
-        return homeTeam;
-    }
+    public String getHomeTeam() { return homeTeam; }
 
     public String getAwayTeam() {
         return awayTeam;

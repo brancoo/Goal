@@ -16,11 +16,13 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private String stringResource;
+    private String compId;
 
-    RecyclerViewTeamAdapter(Context context, List<Team> data) {
+    RecyclerViewTeamAdapter(Context context, List<Team> data, String compId) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         stringResource = context.getString(R.string.foundation_year);
+        this.compId = compId;
     }
 
     // inflates the row layout from xml when needed
@@ -43,6 +45,7 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
                 Intent intent = new Intent(v.getContext(), TeamActivity.class);
                 intent.putExtra("teamId", mData.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("teamName", mData.get(holder.getAdapterPosition()).getName());
+                intent.putExtra("compId", compId);
                 mInflater.getContext().startActivity(intent);
             }
         });
