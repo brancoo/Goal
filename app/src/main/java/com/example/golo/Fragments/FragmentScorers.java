@@ -45,7 +45,7 @@ public class FragmentScorers extends Fragment {
         super.onCreate(savedInstanceBundle);
         String compId = getArguments().getString("compId");
         try {
-            scoringList = dataScoringList.getObjectfromJson(dataScoringList.getUrl()+compId+"/scorers", ScoringList.class);
+            scoringList = dataScoringList.getObjectfromJson(dataScoringList.getUrl()+"competitions/"+compId+"/scorers", ScoringList.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

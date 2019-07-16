@@ -1,20 +1,15 @@
 package com.example.golo;
 
-import android.app.Application;
-import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 public class DataSource<T>{
     private final String API_token = "e251f2f69b2b4413aaba270a02148849";
-    private String url = "http://api.football-data.org/v2/competitions/";
+    private String url = "http://api.football-data.org/v2/";
 
     public String getJsonfromURL(final String apiURL) throws Exception {
         URL url = new URL(apiURL);

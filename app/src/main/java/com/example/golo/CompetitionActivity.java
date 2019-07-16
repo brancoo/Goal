@@ -46,7 +46,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
 
         try {  //verificar se o objecto seleccionado já existe para não fazer request sempre do mesmo objecto
             DataSource<Competition> data = new DataSource<>();
-            competition = data.getObjectfromJson(data.getUrl() + compId, Competition.class);
+            competition = data.getObjectfromJson(data.getUrl() + "competitions/" + compId, Competition.class);
         } catch (Exception e) {
             if(e.getMessage().equals("429"))
                 Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_SHORT).show();
@@ -63,7 +63,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
 
             DataSource<Standing> standingDataSource = new DataSource<>();
             try {
-                standing = standingDataSource.getObjectfromJson(standingDataSource.getUrl()+compId+"/standings", Standing.class);
+                standing = standingDataSource.getObjectfromJson(standingDataSource.getUrl()+"competitions/"+compId+"/standings", Standing.class);
             } catch (Exception e) {
                 if(e.getMessage().equals("429"))
                     Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
@@ -100,7 +100,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             DataSource<TeamList> dataSource = new DataSource<>();
 
             try {
-                teamList = dataSource.getObjectfromJson(dataSource.getUrl() + compId + "/teams", TeamList.class);
+                teamList = dataSource.getObjectfromJson(dataSource.getUrl() + "competitions/" + compId + "/teams", TeamList.class);
             } catch (Exception e) {
                 if(e.getMessage().equals("429"))
                     Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();

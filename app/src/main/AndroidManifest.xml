@@ -13,6 +13,8 @@
             android:supportsRtl="true"
             android:theme="@style/CustomTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".MatchActivity">
+        </activity>
         <activity android:name=".TeamActivity">
         </activity>
         <activity android:name=".CompetitionActivity">

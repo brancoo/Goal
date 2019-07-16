@@ -2,12 +2,15 @@ package com.example.golo;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Match.Match;
@@ -36,21 +39,37 @@ public class RecyclerViewMatchesAdapter extends RecyclerView.Adapter<RecyclerVie
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(final RecyclerViewMatchesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerViewMatchesAdapter.ViewHolder holder, final int position) {
         holder.matchDate.setText("Match Date: " + mData.get(position).getUtcDate().substring(0,10));
+        holder.matchDate.setTypeface(null, Typeface.BOLD);
+
         holder.matchDay.setText("Matchday: " + mData.get(position).getMatchday());
+        holder.matchDay.setTypeface(null, Typeface.BOLD);
+
         holder.matchHomeTeam.setText(mData.get(position).getHomeTeam().getName());
-        holder.matchHomeTeamScore.setText(" - " + mData.get(position).getScore().getFullTime().getHomeTeam());
-        holder.matchAwayTeamScore.setText(" - " + mData.get(position).getScore().getFullTime().getAwayTeam());
         holder.matchAwayTeam.setText(mData.get(position).getAwayTeam().getName());
 
-        if(!mData.get(position).getScore().getWinner().equals("null")) {
+        if(mData.get(position).getScore().getWinner() != null) {
+            holder.matchHomeTeamScore.setText(" - " + mData.get(position).getScore().getFullTime().getHomeTeam());
+            holder.matchAwayTeamScore.setText(" - " + mData.get(position).getScore().getFullTime().getAwayTeam());
             if (mData.get(position).getScore().getWinner().equals("HOME_TEAM"))
                 holder.matchHomeTeam.setTypeface(null, Typeface.BOLD);
             else if (mData.get(position).getScore().getWinner().equals("AWAY_TEAM")){
                 holder.matchAwayTeam.setTypeface(null, Typeface.BOLD);
             }
+        } else{
+            holder.matchHomeTeamScore.setText(" vs. ");
         }
+
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MatchActivity.class);
+                intent.putExtra("matchId", mData.get(position).getId());
+                mInflater.getContext().startActivity(intent);
+            }
+        });
     }
 
     // total number of rows
@@ -66,11 +85,11 @@ public class RecyclerViewMatchesAdapter extends RecyclerView.Adapter<RecyclerVie
         private TextView matchAwayTeam;
         private TextView matchAwayTeamScore;
         private TextView matchHomeTeamScore;
-        private RelativeLayout linearLayout;
+        private RelativeLayout relativeLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
-            linearLayout = itemView.findViewById(R.id.ll);
+            relativeLayout = itemView.findViewById(R.id.ll);
             matchDate = itemView.findViewById(R.id.matchDateId);
             matchDay = itemView.findViewById(R.id.matchdayId);
             matchHomeTeam = itemView.findViewById(R.id.matchHomeTeamId);

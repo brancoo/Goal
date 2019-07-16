@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Team.Team;
@@ -39,7 +40,7 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
         holder.teamFoundation.setText(stringResource + mData.get(position).getFounded());
         holder.teamStadium.setText(mData.get(position).getVenue());
 
-        holder.teamName.setOnClickListener(new View.OnClickListener() {
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TeamActivity.class);
@@ -58,12 +59,14 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView teamName;
-        public TextView teamFoundation;
-        public TextView teamStadium;
+        private TextView teamName;
+        private TextView teamFoundation;
+        private TextView teamStadium;
+        private RelativeLayout relativeLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
+            relativeLayout = itemView.findViewById(R.id.teams_rowLayoutId);
             teamName = itemView.findViewById(R.id.teamNameId);
             teamFoundation = itemView.findViewById(R.id.teamFoundationId);
             teamStadium = itemView.findViewById(R.id.teamStadiumId);

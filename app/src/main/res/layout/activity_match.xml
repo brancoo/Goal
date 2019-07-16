@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MatchActivity">
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+    <TextView
+            android:text="H2H Information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true" android:textStyle="bold" android:layout_marginTop="10dp"
+            android:id="@+id/h2hInfoId" android:textSize="18sp"/>
+
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/h2hTotalGamesId"
+            android:layout_centerInParent="false" android:layout_below="@+id/h2hInfoId"
+            android:layout_centerHorizontal="true"/>
+    <lecho.lib.hellocharts.view.PieChartView
+            android:id="@+id/pieChartId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:scaleX="1" android:scaleY="1"
+            android:layout_below="@+id/h2hTotalGamesId"
+            android:layout_marginBottom="400dp">
+
+    </lecho.lib.hellocharts.view.PieChartView>
+
+</RelativeLayout>

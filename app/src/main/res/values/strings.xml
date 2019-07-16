@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Golo</string>
     <string name="title_activity_competition">Competição</string>
-    <string name="foundation_year">Ano de Fundação: </string>
+    <string name="foundation_year">Ano de Fundação:</string>
+    <string name="team_info">TEAM INFO</string>
+    <string name="team_squad">SQUAD</string>
+    <string name="team_matches">MATCHES</string>
 </resources>

@@ -55,6 +55,8 @@ public class Match implements Serializable {
         this.referees = referees;
     }
 
+    public String getId() { return id; }
+
     public CompetitionSeason getSeason() {
         return season;
     }

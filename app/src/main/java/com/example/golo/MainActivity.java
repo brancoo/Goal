@@ -2,9 +2,12 @@ package com.example.golo;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
-    RecyclerViewAdapter adapter;
+    private RecyclerViewAdapter adapter;
     private Map<String, String> mapOfCompetitions = new HashMap<String, String>();
 
     @Override
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private void setData(){
         DataSource<CompetitionList> data = new DataSource<>();
         try {
-            CompetitionList compList = data.getObjectfromJson(data.getUrl(), CompetitionList.class);
+            CompetitionList compList = data.getObjectfromJson(data.getUrl()+"competitions", CompetitionList.class);
             for (Competition competition : compList.getAvailableCompetitions())
                 mapOfCompetitions.put(competition.getName(), competition.getId());
         } catch (Exception e) {

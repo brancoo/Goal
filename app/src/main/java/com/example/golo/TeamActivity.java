@@ -1,5 +1,6 @@
 package com.example.golo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class TeamActivity extends AppCompatActivity {
 
         DataSource<Team> dataSource = new DataSource<>();
         try {
-            team = dataSource.getObjectfromJson("http://api.football-data.org/v2/teams/"+extras.getString("teamId"),Team.class);
+            team = dataSource.getObjectfromJson(dataSource.getUrl() + "teams/" + extras.getString("teamId"),Team.class);
         } catch (Exception e) {
             if(e.getMessage().equals("429"))
                 Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
@@ -49,7 +50,7 @@ public class TeamActivity extends AppCompatActivity {
 
         DataSource<MatchList> dataMatches = new DataSource<>();
         try {
-            matchList = dataMatches.getObjectfromJson(dataMatches.getUrl()+extras.getString("compId")+"/matches",MatchList.class);
+            matchList = dataMatches.getObjectfromJson(dataMatches.getUrl() +"competitions/" + extras.getString("compId") + "/matches",MatchList.class);
         } catch (Exception e) {
             if(e.getMessage().equals("429"))
                 Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
@@ -76,19 +77,20 @@ public class TeamActivity extends AppCompatActivity {
             if(matchList.getMatches().get(i).getAwayTeam().getName().equals(team.getName()) || matchList.getMatches().get(i).getHomeTeam().getName().equals(team.getName()))
                 matches.add(matchList.getMatches().get(i));
         }
-        Log.d("ERRO", "ERRO: " + matches.get(0).getScore().getFullTime().getHomeTeam());
         extras.putSerializable("teamMatches", matches);
         fragmentTeamMatches.setArguments(extras);
 
-        teamViewPagerAdapter.AddFragment(fragmentTeamInfo, "TEAM INFO");
-        teamViewPagerAdapter.AddFragment(fragmentTeamSquad, "SQUAD");
-        teamViewPagerAdapter.AddFragment(fragmentTeamMatches,"MATCHES");
+        teamViewPagerAdapter.AddFragment(fragmentTeamInfo, getString(R.string.team_info));
+        teamViewPagerAdapter.AddFragment(fragmentTeamSquad, getString(R.string.team_squad));
+        teamViewPagerAdapter.AddFragment(fragmentTeamMatches,getString(R.string.team_matches));
         viewPager.setAdapter(teamViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.info_icon);
+        tabLayout.getTabAt(0).getIcon().setTint(Color.WHITE);
         tabLayout.getTabAt(1).setIcon(R.drawable.squad_icon);
+        tabLayout.getTabAt(1).getIcon().setTint(Color.WHITE);
         tabLayout.getTabAt(2).setIcon(R.drawable.matches_icon);
-
+        tabLayout.getTabAt(2).getIcon().setTint(Color.WHITE);
     }
 }
