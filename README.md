@@ -10,4 +10,5 @@ Work in progress...
  - [ x ] - Show entire squad of a selected team;
  - [ ] - Create a player's activity;
  - [ ] - Improve app's style;
- - [ ] - Preventing app shutdown when user reaches the limit of requests.
+ - [ ] - Preventing app shutdown when user reaches the limit of requests;
+ - [ ] - Implement Retrofit.
