@@ -43,8 +43,13 @@ public class RecyclerViewMatchesAdapter extends RecyclerView.Adapter<RecyclerVie
         holder.matchDate.setText("Match Date: " + mData.get(position).getUtcDate().substring(0,10));
         holder.matchDate.setTypeface(null, Typeface.BOLD);
 
-        holder.matchDay.setText("Matchday: " + mData.get(position).getMatchday());
-        holder.matchDay.setTypeface(null, Typeface.BOLD);
+        if(mData.get(position).getMatchday() != null) {
+            holder.matchDay.setText("Matchday: " + mData.get(position).getMatchday());
+            holder.matchDay.setTypeface(null, Typeface.BOLD);
+        }else{
+            holder.matchDay.setText("Matchday: --");
+            holder.matchDay.setTypeface(null, Typeface.BOLD);
+        }
 
         holder.matchHomeTeam.setText(mData.get(position).getHomeTeam().getName());
         holder.matchAwayTeam.setText(mData.get(position).getAwayTeam().getName());

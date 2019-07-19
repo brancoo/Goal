@@ -2,7 +2,10 @@ package com.example.golo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +36,12 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(final RecyclerViewStandingAdapter.ViewHolder holder, int position) {
-        holder.textViewTeamName.setMovementMethod(new ScrollingMovementMethod());
+        holder.textViewTeamPosition.setText(standingTeams.get(position).getPosition());
+        if(Integer.valueOf(standingTeams.get(position).getPosition()).equals(1)) { //o 18º classificado também fica a verde!
+            holder.textViewTeamPosition.setTextColor(Color.BLACK);
+            holder.textViewTeamPosition.setBackgroundResource(R.drawable.position_drawable);
+        }
+
         holder.textViewTeamName.setText(standingTeams.get(position).getTeam().getName());
         holder.textViewTeamPoints.setText(standingTeams.get(position).getPoints());
         holder.textViewTeamWins.setText(standingTeams.get(position).getWon());
@@ -62,6 +70,7 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public TextView textViewTeamPosition;
     public TextView textViewTeamName;
     public TextView textViewTeamPoints;
     public TextView textViewTeamWins;
@@ -73,7 +82,8 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     ViewHolder(View itemView) {
         super(itemView);
-        textViewTeamName = itemView.findViewById(R.id.standingTeamName);
+        textViewTeamPosition = itemView.findViewById(R.id.standingTeamPosition);
+        textViewTeamName = itemView.findViewById(R.id.standingTeamNameId);
         textViewTeamPoints = itemView.findViewById(R.id.standingTeamPoints);
         textViewTeamWins = itemView.findViewById(R.id.standingTeamWins);
         textViewTeamDraws = itemView.findViewById(R.id.standingTeamDraws);

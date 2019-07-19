@@ -62,16 +62,4 @@ public class Competition implements Serializable {
         return area;
     }
 
-    @Override
-    public String toString() {
-        return "Competition{" +
-                "id='" + id + '\'' +
-                ", area=" + area +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", currentSeason=" + currentSeason +
-                ", seasons=" + seasons +
-                '}';
-    }
-
 }

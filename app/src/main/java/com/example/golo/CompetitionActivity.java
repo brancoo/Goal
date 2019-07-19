@@ -56,7 +56,8 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
 
         //caso a API retorne standings
         if (Integer.parseInt(competition.getId()) == 2013 || Integer.parseInt(competition.getId())== 2019 ||
-                Integer.parseInt(competition.getId()) == 2021) {
+                Integer.parseInt(competition.getId()) == 2021 || Integer.parseInt(competition.getId())== 2002 ||
+                Integer.parseInt(competition.getId())== 2003) {
             tabLayout = findViewById(R.id.tabLayoutId);
             viewPager = findViewById(R.id.viewPagerId);
             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

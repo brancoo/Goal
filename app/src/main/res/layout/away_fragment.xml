@@ -47,7 +47,11 @@
                 android:text="Name"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" android:paddingStart="15dp"/>
+        <TextView
+                android:text="#"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView"/>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/awayStandingRecyclerView"

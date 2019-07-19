@@ -55,7 +55,7 @@ public class MatchActivity extends AppCompatActivity {
 
         matchTeams.setText(singleMatch.getMatch().getHomeTeam().getName() + " vs. " + singleMatch.getMatch().getAwayTeam().getName());
         matchStadium.setText("Stadium: " + singleMatch.getMatch().getVenue());
-        matchStage.setText("Stage: " + singleMatch.getMatch().getStage());
+        matchStage.setText("Stage: " + singleMatch.getMatch().getStage().replace("_"," "));
         matchDate.setText("Match Date: " + singleMatch.getMatch().getUtcDate().substring(0,10));
 
         if(singleMatch.getMatch().getStatus().equals("FINISHED")) {

@@ -44,8 +44,8 @@ public class FragmentTeamInfo extends Fragment {
             }
         }
 
-        if(teamLogo.getVisibility() == View.INVISIBLE){
-            Toast.makeText(inflater.getContext(),"NAO FOI POSSIVEL CARREGAR IMAGEM", Toast.LENGTH_LONG).show();
+        if(teamLogo.getVisibility() == ImageView.INVISIBLE){
+            Toast.makeText(inflater.getContext(),"ERROR LOADING TEAM LOGO.", Toast.LENGTH_LONG).show();
         }
 
         teamLogo.setPadding(0, 100, 0, 0);

@@ -24,7 +24,6 @@ public class TeamActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Toolbar toolbar;
     private Team team;
-    private String compId;
     private MatchList matchList;
 
     @Override
@@ -33,7 +32,6 @@ public class TeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team);
 
         Bundle extras = getIntent().getExtras();
-        compId = extras.getString("compId");
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

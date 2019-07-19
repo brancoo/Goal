@@ -5,13 +5,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" android:paddingTop="30dp">
 
+
     <TextView
-            android:id="@+id/standingTeamName"
+            android:text="#"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/standingTeamPosition"
+            android:paddingRight="7dp"/>
+    <TextView
+            android:id="@+id/standingTeamNameId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:maxLines = "1"
-            android:layout_marginBottom="-1dp" android:layout_alignBottom="@+id/standingTeamWins"/>
+            android:maxLines="1"
+            android:maxLength="18"
+            android:layout_alignBottom="@+id/standingTeamWins"
+            android:layout_toEndOf="@+id/standingTeamPosition" android:layout_marginLeft="15dp"/>
     <TextView
             android:text="Points"
             android:layout_width="wrap_content"

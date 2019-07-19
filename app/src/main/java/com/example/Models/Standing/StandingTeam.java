@@ -85,11 +85,4 @@ public class StandingTeam implements Serializable {
     }
 
     public Team getTeam() { return team;}
-
-    @Override
-    public String toString() {
-        return team.getName() + "\t\t\t\t" + getPosition()+ "\t\t\t\t" + getPoints() + '\t' + getWon() + '\t' + getDraw()
-                + '\t' + getLost() + '\t' + '\t' + getGoalsFor()
-                + '\t' + getGoalsAgainst() + '\t' + getGoalDifference();
-    }
 }

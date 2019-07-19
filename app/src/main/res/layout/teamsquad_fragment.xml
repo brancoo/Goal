@@ -3,39 +3,38 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_marginTop="130dp">
-        <TextView
-                android:text="Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-        <TextView
-                android:text="Position"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:paddingStart="150dp" android:textStyle="bold"/>
-        <TextView
-                android:text="Nationality"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:paddingStart="240dp" android:textStyle="bold"/>
-        <TextView
-                android:text="Role"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textSize="18sp"
-                android:paddingStart="360dp" android:textStyle="bold"/>
-    </RelativeLayout>
-
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="130dp">
+            <TextView
+                    android:text="Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+            <TextView
+                    android:text="Position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:paddingStart="130dp" android:textStyle="bold"/>
+            <TextView
+                    android:text="Nationality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:paddingStart="240dp" android:textStyle="bold"/>
+            <TextView
+                    android:text="Role"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textSize="18sp"
+                    android:paddingStart="360dp" android:textStyle="bold"/>
+        </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/squadRecyclerViewId"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
