@@ -11,27 +11,24 @@
                 android:text="Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/playerNameId"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
         <TextView
                 android:text="Position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/playerPositionId"
                 android:textSize="18sp"
                 android:paddingStart="150dp" android:textStyle="bold"/>
         <TextView
                 android:text="Nationality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/playerNationalityId"
                 android:textSize="18sp"
                 android:paddingStart="240dp" android:textStyle="bold"/>
         <TextView
                 android:text="Role"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/playerRoleId" android:textSize="18sp"
+                android:layout_height="wrap_content" android:textSize="18sp"
                 android:paddingStart="360dp" android:textStyle="bold"/>
     </RelativeLayout>
 

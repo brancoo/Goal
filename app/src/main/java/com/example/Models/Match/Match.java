@@ -23,6 +23,9 @@ public class Match implements Serializable {
     @SerializedName("matchday")
     private String matchday;
 
+    @SerializedName("venue")
+    private String venue;
+
     @SerializedName("stage")
     private String stage;
 
@@ -41,12 +44,13 @@ public class Match implements Serializable {
     @SerializedName("referees")
     private List<Referee> referees;
 
-    public Match(String id, CompetitionSeason season, String utcDate, String status, String matchday, String stage, String group, MatchTeam homeTeam, MatchTeam awayTeam, MatchScore score, List<Referee> referees) {
+    public Match(String id, CompetitionSeason season, String utcDate, String status, String matchday, String venue, String stage, String group, MatchTeam homeTeam, MatchTeam awayTeam, MatchScore score, List<Referee> referees) {
         this.id = id;
         this.season = season;
         this.utcDate = utcDate;
         this.status = status;
         this.matchday = matchday;
+        this.venue = venue;
         this.stage = stage;
         this.group = group;
         this.homeTeam = homeTeam;
@@ -96,4 +100,6 @@ public class Match implements Serializable {
     public String getUtcDate() {
         return utcDate;
     }
+
+    public String getVenue() { return venue; }
 }

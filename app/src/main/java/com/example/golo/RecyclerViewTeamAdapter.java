@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Team.Team;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTeamAdapter.ViewHolder> {
@@ -24,6 +26,10 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
         this.mData = data;
         stringResource = context.getString(R.string.foundation_year);
         this.compId = compId;
+        Collections.sort(mData, new Comparator<Team>() { //sort alphabetically the list of teams!
+                    public int compare(Team team1, Team team2)
+                    { return team1.getName().compareTo(team2.getName()); }
+                });
     }
 
     // inflates the row layout from xml when needed

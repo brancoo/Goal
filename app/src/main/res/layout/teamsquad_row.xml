@@ -10,6 +10,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/squadPlayerNameId"
             android:maxLines="1"
+            android:maxLength="16"
             android:scrollbars="vertical"
             android:text="Name"
             android:textStyle="bold"/>
@@ -27,6 +28,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/squadPlayerNationalityId"
             android:maxLines = "1"
+            android:maxLength="16"
             android:scrollbars = "vertical"
             android:text="Nationality"
             android:paddingStart="240dp"/>

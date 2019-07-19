@@ -1,12 +1,14 @@
 package com.example.golo;
 
 import android.content.Context;
-import android.content.Intent;
+import android.text.Selection;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +43,7 @@ public class RecyclerViewSquadAdapter extends RecyclerView.Adapter<RecyclerViewS
         holder.squadPlayerName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mInflater.getContext(),"PLAYER", Toast.LENGTH_LONG).show();
+
             }
         });
     }

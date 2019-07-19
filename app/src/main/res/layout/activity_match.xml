@@ -8,10 +8,48 @@
 
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
     <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/matchTeamsId" android:layout_below="@+id/toolbar"
+            android:layout_centerInParent="true" android:textSize="16sp" android:paddingBottom="10dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/matchStadiumId"
+            android:layout_below="@+id/matchTeamsId"
+            android:textSize="16sp" android:layout_centerHorizontal="true" android:paddingBottom="10dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/matchStageId"
+            android:layout_below="@+id/matchStadiumId"
+            android:textSize="16sp"
+            android:layout_centerHorizontal="true" android:paddingBottom="10dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/matchDateId"
+            android:textSize="16sp"
+            android:layout_below="@+id/matchStageId" android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/matchFinalScoreId"
+            android:textSize="16sp"
+            android:layout_centerHorizontal="true" android:layout_below="@+id/matchDateId"
+            android:paddingBottom="10dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/matchHalfTimeScoreId"
+            android:textSize="16sp"
+            android:layout_below="@+id/matchFinalScoreId" android:layout_centerHorizontal="true"/>
+    <TextView
             android:text="H2H Information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_below="@+id/toolbar"
-            android:layout_centerHorizontal="true" android:textStyle="bold" android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true" android:textStyle="bold" android:layout_marginTop="200dp"
             android:id="@+id/h2hInfoId" android:textSize="18sp"/>
 
     <TextView
@@ -23,9 +61,8 @@
     <lecho.lib.hellocharts.view.PieChartView
             android:id="@+id/pieChartId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:scaleX="1" android:scaleY="1"
-            android:layout_below="@+id/h2hTotalGamesId"
-            android:layout_marginBottom="400dp">
+            android:layout_height="match_parent" android:scaleX="1" android:scaleY="1"
+            android:layout_below="@+id/h2hTotalGamesId" android:layout_marginBottom="200dp">
 
     </lecho.lib.hellocharts.view.PieChartView>
 
