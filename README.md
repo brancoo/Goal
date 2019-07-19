@@ -6,9 +6,7 @@ Check out the screenshot inside the project.
 Work in progress...
 
 ## TO DO
- - [ x ] - In Competition Activity you must be able to click on each item, and then, you will be able to see the matches of the team selected (and more info probably);
- - [ x ] - Show entire squad of a selected team;
- - [ ] - Create a player's activity;
  - [ ] - Improve app's style;
  - [ ] - Preventing app shutdown when user reaches the limit of requests;
+ - [ ] - Fix background colour for the table classification leader (the 1st and 18th/17th team also have a green background);
  - [ ] - Implement Retrofit.
