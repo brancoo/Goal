@@ -37,11 +37,6 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(final RecyclerViewStandingAdapter.ViewHolder holder, int position) {
         holder.textViewTeamPosition.setText(standingTeams.get(position).getPosition());
-        if(Integer.valueOf(standingTeams.get(position).getPosition()).equals(1)) { //o 18º classificado também fica a verde!
-            holder.textViewTeamPosition.setTextColor(Color.BLACK);
-            holder.textViewTeamPosition.setBackgroundResource(R.drawable.position_drawable);
-        }
-
         holder.textViewTeamName.setText(standingTeams.get(position).getTeam().getName());
         holder.textViewTeamPoints.setText(standingTeams.get(position).getPoints());
         holder.textViewTeamWins.setText(standingTeams.get(position).getWon());

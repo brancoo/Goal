@@ -4,16 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.Models.Team.Team;
 import com.example.golo.R;
 import com.example.golo.Utils;
 import com.squareup.picasso.Picasso;
+import lecho.lib.hellocharts.model.Line;
 
 public class FragmentTeamInfo extends Fragment {
     private View v;
@@ -30,6 +30,8 @@ public class FragmentTeamInfo extends Fragment {
         team = (Team) getArguments().getSerializable("team");
 
         ImageView teamLogo = v.findViewById(R.id.teamLogoId);
+        TextView teamAlias = v.findViewById(R.id.teamAliasId);
+
         teamLogo.setVisibility(ImageView.INVISIBLE);
         String logoUrl = team.getCrestUrl();
 
@@ -45,11 +47,13 @@ public class FragmentTeamInfo extends Fragment {
         }
 
         if(teamLogo.getVisibility() == ImageView.INVISIBLE){
-            Toast.makeText(inflater.getContext(),"ERROR LOADING TEAM LOGO.", Toast.LENGTH_LONG).show();
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) teamAlias.getLayoutParams();
+            lp.setMargins(0,350,0,0);
+            teamAlias.setLayoutParams(lp);
+            Toast.makeText(inflater.getContext(),"ERROR LOADING TEAM LOGO.", Toast.LENGTH_SHORT).show();
         }
 
         teamLogo.setPadding(0, 100, 0, 0);
-        TextView teamAlias = v.findViewById(R.id.teamAliasId);
         teamAlias.setText("Alias: " + team.getTla());
 
         TextView teamYearFoundation = v.findViewById(R.id.teamFoundationId);

@@ -5,4 +5,5 @@
     <string name="team_info">TEAM INFO</string>
     <string name="team_squad">SQUAD</string>
     <string name="team_matches">MATCHES</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>
