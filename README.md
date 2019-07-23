@@ -7,4 +7,3 @@ Work in progress...
 
 ## TO DO
  - [ ] - Preventing app shutdown when user reaches the limit of requests;
- - [ ] - Fix background colour for the table classification leader (the 1st and 18th/17th team also have a green background).
