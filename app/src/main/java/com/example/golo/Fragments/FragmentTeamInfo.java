@@ -4,16 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.Models.Team.Team;
 import com.example.golo.R;
 import com.example.golo.Utils;
 import com.squareup.picasso.Picasso;
-import lecho.lib.hellocharts.model.Line;
 
 public class FragmentTeamInfo extends Fragment {
     private View v;

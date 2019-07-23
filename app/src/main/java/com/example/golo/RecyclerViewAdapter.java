@@ -1,13 +1,15 @@
 package com.example.golo;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -38,6 +40,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(mData.get(position));
+        Drawable iconEredivisie = ContextCompat.getDrawable(mInflater.getContext(), R.drawable.ic_eredivisie);
+        Drawable iconPremierLeague = ContextCompat.getDrawable(mInflater.getContext(), R.drawable.ic_premierleague);
+        iconEredivisie.setColorFilter(ContextCompat.getColor(mInflater.getContext(), R.color.colorPrimaryNight), PorterDuff.Mode.MULTIPLY);
+        iconPremierLeague.setColorFilter(ContextCompat.getColor(mInflater.getContext(),R.color.colorPrimaryNight), PorterDuff.Mode.MULTIPLY);
         holder.imageView.setImageResource(compIcons[position]);
     }
 
@@ -79,4 +85,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public interface ItemClickListener {
             void onItemClick(View view, int position);
         }
-    }
+
+        public void clear() {
+            mData.clear();
+            notifyDataSetChanged();
+        }
+
+        public void addAll(List<String> list) {
+            mData.addAll(list);
+            notifyDataSetChanged();
+        }
+
+}

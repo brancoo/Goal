@@ -36,7 +36,7 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(final RecyclerViewStandingAdapter.ViewHolder holder, int position) {
-        holder.textViewTeamPosition.setText(standingTeams.get(position).getPosition());
+        holder.textViewTeamPosition.setText(standingTeams.get(position).getPosition() + ".");
         holder.textViewTeamName.setText(standingTeams.get(position).getTeam().getName());
         holder.textViewTeamPoints.setText(standingTeams.get(position).getPoints());
         holder.textViewTeamWins.setText(standingTeams.get(position).getWon());

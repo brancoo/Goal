@@ -2,17 +2,16 @@ package com.example.golo;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionList;
 
@@ -24,7 +23,8 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
     private RecyclerViewAdapter adapter;
     private Map<String, String> mapOfCompetitions = new HashMap<String, String>();
-
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private List<String> compNames = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,15 +38,24 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             StrictMode.setThreadPolicy(policy);
         }
 
-        setData();
-        List<String> compNames = new ArrayList<String>(mapOfCompetitions.keySet());
+        if(!ConnectivityHelper.isConnectedToNetwork(getApplicationContext())){
+            new AlertDialog.Builder(this)
+                    .setTitle("Something gone wrong!")
+                    .setMessage("\nCheck your internet connection")
+                    .setPositiveButton("Ok",null)
+                    .show();
+        }else {
+            setData();
 
-        RecyclerView recyclerView = findViewById(R.id.idCompetitionsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerViewAdapter(this, compNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-
+            swipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutId);
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    setData();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+        }
     }
 
     private void setData(){
@@ -56,10 +65,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             for (Competition competition : compList.getAvailableCompetitions())
                 mapOfCompetitions.put(competition.getName(), competition.getId());
         } catch (Exception e) {
-            if(e.getMessage().equals("429"))
-                Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
+        compNames = new ArrayList<>(mapOfCompetitions.keySet());
+        RecyclerView recyclerView = findViewById(R.id.idCompetitionsRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RecyclerViewAdapter(this, compNames);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

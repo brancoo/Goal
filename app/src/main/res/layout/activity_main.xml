@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent"
-            android:layout_width="fill_parent">
     <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/idCompetitionsRecyclerView"
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayoutId"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="60dp"/>
+                android:layout_height="match_parent" android:layout_marginTop="55dp">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/idCompetitionsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+            />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
-</ScrollView>

@@ -19,7 +19,7 @@
             android:maxLines="1"
             android:maxLength="18"
             android:layout_alignBottom="@+id/standingTeamWins"
-            android:layout_toEndOf="@+id/standingTeamPosition" android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="25dp"/>
     <TextView
             android:text="Points"
             android:layout_width="wrap_content"

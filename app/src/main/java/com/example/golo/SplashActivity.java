@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 public class SplashActivity extends AppCompatActivity {
     // Tempo da splash screen
@@ -14,8 +13,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         new Handler().postDelayed(new Runnable() {
             // Exibindo splash com um temporizador.
@@ -26,7 +23,6 @@ public class SplashActivity extends AppCompatActivity {
                 // E inicia a activity principal
                 Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
-
 
                 // Fecha esta activity
                 finish();

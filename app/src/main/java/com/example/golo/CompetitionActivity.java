@@ -1,6 +1,9 @@
 package com.example.golo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,8 +51,15 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             DataSource<Competition> data = new DataSource<>();
             competition = data.getObjectfromJson(data.getUrl() + "competitions/" + compId, Competition.class);
         } catch (Exception e) {
-            if(e.getMessage().equals("429"))
-                Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_SHORT).show();
+            if(e.getMessage().equals("429")){
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        Intent i = new Intent(getApplication(), SplashActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }, 10000);
+            }
             e.printStackTrace();
         }
         setToolbarInfo();
@@ -66,8 +76,6 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             try {
                 standing = standingDataSource.getObjectfromJson(standingDataSource.getUrl()+"competitions/"+compId+"/standings", Standing.class);
             } catch (Exception e) {
-                if(e.getMessage().equals("429"))
-                    Toast.makeText(getApplicationContext(),"Too many requests!", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
