@@ -1,7 +1,5 @@
 package com.example.golo;
 
-import android.content.Intent;
-import android.os.Handler;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -12,7 +10,6 @@ import java.net.URL;
 public class DataSource<T> {
     private final String API_token = "e251f2f69b2b4413aaba270a02148849";
     private String url = "http://api.football-data.org/v2/";
-    StringBuffer content;
 
         public String getJsonfromURL(final String apiURL) throws Exception {
             URL url = new URL(apiURL);
@@ -23,7 +20,7 @@ public class DataSource<T> {
 
             int status = connection.getResponseCode();
             if (status == 200) { //if the connection was made sucessfully
-                content = new StringBuffer();
+                StringBuffer content = new StringBuffer();
                 String inputLine;
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -34,7 +31,7 @@ public class DataSource<T> {
                 in.close();
                 return content.toString();
             } else if (status == 429) {
-                throw  new Exception("429");
+                throw new Exception("429");
             } else {
                 throw new Exception("HTTP STATUS: " + status);
             }

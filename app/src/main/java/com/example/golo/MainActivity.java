@@ -14,6 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +66,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
     }
 
-    private void setData(){
+    private void setData() {
+        GetDataService apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
+        Call<CompetitionList> compList = apiService.getCompetitions();
+        compList.enqueue(new Callback<CompetitionList>() {
+            @Override
+            public void onResponse(Call<CompetitionList> call, Response<CompetitionList> response) {
+                if(response.isSuccessful())
+                    generateDataList(response.body().getAvailableCompetitions());
+            }
+            @Override
+            public void onFailure(Call<CompetitionList> call, Throwable t) {
+                Log.d("ERROR", "ERROR: " + t.getMessage());
+            }
+        });
+/*
         DataSource<CompetitionList> data = new DataSource<>();
         try {
             CompetitionList compList = data.getObjectfromJson(data.getUrl()+"competitions", CompetitionList.class);
@@ -73,12 +95,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecyclerViewAdapter(this, compNames);
         adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter); */
+    }
+
+    /*Method to generate List of data using RecyclerView with custom adapter*/
+    private void generateDataList(List<Competition> competitionList) {
+        RecyclerView recyclerView = findViewById(R.id.idCompetitionsRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RecyclerViewAdapter(this, competitionList);
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick (View view, int position){
-        String compName = adapter.getItem(position);
+        String compName = adapter.getItem(position).getName();
         String compId = mapOfCompetitions.get(compName);
         Intent intent = new Intent(MainActivity.this, CompetitionActivity.class);
         intent.putExtra("compId", compId); //sending compId to the new Activity
