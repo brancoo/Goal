@@ -9,7 +9,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
             android:visibility="visible"
-            android:indeterminateOnly="true" android:layout_centerVertical="true">
+            android:indeterminateOnly="true"
+            android:layout_centerVertical="true">
     </ProgressBar>
     <TextView
             android:text="Loading..."

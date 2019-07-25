@@ -29,20 +29,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/matchHomeTeamId"
+                android:maxLines="1"
                 android:layout_below="@+id/matchDateId"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/matchHomeTeamScoreId"
+                android:maxLines="1"
                 android:layout_below="@+id/matchDateId" android:layout_toEndOf="@+id/matchHomeTeamId"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/matchAwayTeamScoreId"
                 android:layout_below="@+id/matchHomeTeamScoreId"
+                android:maxLines="1"
                 android:layout_toEndOf="@+id/matchAwayTeamId"/>
         <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/matchAwayTeamId"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:id="@+id/matchAwayTeamId"
                 android:layout_below="@+id/matchHomeTeamId"/>
     </RelativeLayout>
 

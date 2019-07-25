@@ -36,8 +36,10 @@ public class FragmentTeamSquad extends Fragment {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onCreate(@Nullable Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
+        assert getArguments() != null;
         teamSquad = ((ArrayList<Player>) getArguments().getSerializable("teamSquad"));
     }
 }

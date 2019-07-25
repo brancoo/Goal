@@ -1,13 +1,11 @@
 package com.example.golo;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.renderscript.Sampler;
-import android.util.ArrayMap;
-import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,11 +17,6 @@ import com.example.Models.Competition.CompetitionList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observable;
-import rx.Observer;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private RecyclerViewAdapter adapter;
     private Map<String, String> mapOfCompetitions = new HashMap<String, String>();
     private SwipeRefreshLayout swipeRefreshLayout;
-    private List<String> compNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +59,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void setData() {
+        // Set up progress before call
+        final ProgressBar progressBar;
+        progressBar = findViewById(R.id.progressBarId);
+
         GetDataService apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
         Call<CompetitionList> compList = apiService.getCompetitions();
         compList.enqueue(new Callback<CompetitionList>() {
             @Override
             public void onResponse(Call<CompetitionList> call, Response<CompetitionList> response) {
+                progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()) {
                     for(Competition competition : response.body().getAvailableCompetitions())
                         mapOfCompetitions.put(competition.getName(), competition.getId());
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             }
             @Override
             public void onFailure(Call<CompetitionList> call, Throwable t) {
-                Log.d("ERROR", "ERROR: " + t.getMessage());
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

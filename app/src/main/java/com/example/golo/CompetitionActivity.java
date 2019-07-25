@@ -105,8 +105,13 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                         teamListCall.enqueue(new Callback<TeamList>() {
                             @Override
                             public void onResponse(Call<TeamList> call, Response<TeamList> response) {
-                                if(response.isSuccessful())
-                                    generateDataList(response);
+                                if(response.isSuccessful()){
+                                    recyclerView = findViewById(R.id.teamsRecyclerView);
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                                    recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(getApplicationContext(), response.body().getTeams(), compId);
+                                    recyclerViewTeamAdapter.setClickListener(CompetitionActivity.this::onItemClick);
+                                    recyclerView.setAdapter(recyclerViewTeamAdapter);
+                                }
                             }
                             @Override
                             public void onFailure(Call<TeamList> call, Throwable t) {
@@ -121,14 +126,6 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                 t.printStackTrace();
             }
         });
-    }
-
-    public void generateDataList(Response<TeamList> teamList){
-        recyclerView = findViewById(R.id.teamsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(getApplicationContext(), teamList.body().getTeams(), compId);
-        recyclerViewTeamAdapter.setClickListener(this);
-        recyclerView.setAdapter(recyclerViewTeamAdapter);
     }
 
     public void setToolbarInfo(Response<Competition> response){

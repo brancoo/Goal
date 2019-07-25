@@ -3,6 +3,8 @@ package com.example.golo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -24,9 +26,6 @@ public class TeamActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private TeamViewPagerAdapter teamViewPagerAdapter;
     private ViewPager viewPager;
-    private Toolbar toolbar;
-    private Team team;
-    private MatchList matchList;
     private GetDataService apiService;
 
     @Override
@@ -36,22 +35,25 @@ public class TeamActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("\t" + extras.getString("teamName"));
+
+        final ProgressBar progressBar;
+        progressBar = findViewById(R.id.progressBarTeamId);
 
         apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
         Call<Team> teamCall = apiService.getTeam(extras.getString("teamId"));
         teamCall.enqueue(new Callback<Team>() {
-
             @Override
             public void onResponse(Call<Team> call, Response<Team> responseTeam) {
                 apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
                 Call<MatchList> matchListCall = apiService.getMatches(extras.getString("compId"));
                 matchListCall.enqueue(new Callback<MatchList>() {
-
                     @Override
-                    public void onResponse(Call<MatchList> call, Response<MatchList> responseMatchList) {
+                    public void onResponse(Call<MatchList> call, Response<MatchList> responseMatch) {
+                        progressBar.setVisibility(View.GONE);
+
                         tabLayout = findViewById(R.id.tabLayoutTeamId);
                         viewPager = findViewById(R.id.teamViewPagerId);
                         teamViewPagerAdapter = new TeamViewPagerAdapter(getSupportFragmentManager());
@@ -69,10 +71,10 @@ public class TeamActivity extends AppCompatActivity {
                         FragmentTeamMatches fragmentTeamMatches = new FragmentTeamMatches();
                         ArrayList<Match> matches = new ArrayList<>();
 
-                        for(int i = 0; i < responseMatchList.body().getMatches().size(); i++){
-                            if(responseMatchList.body().getMatches().get(i).getAwayTeam().getName().equals(responseTeam.body().getName())
-                                    || responseMatchList.body().getMatches().get(i).getHomeTeam().getName().equals(responseTeam.body().getName()))
-                                matches.add(responseMatchList.body().getMatches().get(i));
+                        for(int i = 0; i < responseMatch.body().getMatches().size(); i++){
+                            if(responseMatch.body().getMatches().get(i).getAwayTeam().getName().equals(responseTeam.body().getName())
+                                    || responseMatch.body().getMatches().get(i).getHomeTeam().getName().equals(responseTeam.body().getName()))
+                                matches.add(responseMatch.body().getMatches().get(i));
                         }
                         extras.putSerializable("teamMatches", matches);
                         fragmentTeamMatches.setArguments(extras);
@@ -90,7 +92,7 @@ public class TeamActivity extends AppCompatActivity {
                         tabLayout.getTabAt(2).setIcon(R.drawable.matches_icon);
                         tabLayout.getTabAt(2).getIcon().setTint(Color.WHITE);
                     }
-                    
+
                     @Override
                     public void onFailure(Call<MatchList> call, Throwable t) {
                         t.printStackTrace();
@@ -100,8 +102,10 @@ public class TeamActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Team> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 t.printStackTrace();
             }
         });
+
     }
 }

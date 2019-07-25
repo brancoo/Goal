@@ -35,8 +35,10 @@ public class FragmentAway extends Fragment{
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onCreate(@Nullable Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
+        assert getArguments() != null;
         standingTeamList = ((ArrayList<StandingType>) getArguments().getSerializable("standings"));
     }
 }
