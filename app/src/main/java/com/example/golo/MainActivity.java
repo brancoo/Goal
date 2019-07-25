@@ -4,6 +4,8 @@ package com.example.golo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.renderscript.Sampler;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AlertDialog;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private Map<String, String> mapOfCompetitions = new HashMap<String, String>();
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<String> compNames = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +59,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             setData();
 
             swipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutId);
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    setData();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+            swipeRefreshLayout.setOnRefreshListener(() -> {
+                setData();
+                swipeRefreshLayout.setRefreshing(false);
             });
         }
     }
@@ -72,34 +72,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         compList.enqueue(new Callback<CompetitionList>() {
             @Override
             public void onResponse(Call<CompetitionList> call, Response<CompetitionList> response) {
-                if(response.isSuccessful())
-                    generateDataList(response.body().getAvailableCompetitions());
+                if(response.isSuccessful()) {
+                    for(Competition competition : response.body().getAvailableCompetitions())
+                        mapOfCompetitions.put(competition.getName(), competition.getId());
+                    List<String> values = new ArrayList<>(mapOfCompetitions.keySet());
+                    generateDataList(values);
+                }
             }
             @Override
             public void onFailure(Call<CompetitionList> call, Throwable t) {
                 Log.d("ERROR", "ERROR: " + t.getMessage());
             }
         });
-/*
-        DataSource<CompetitionList> data = new DataSource<>();
-        try {
-            CompetitionList compList = data.getObjectfromJson(data.getUrl()+"competitions", CompetitionList.class);
-            for (Competition competition : compList.getAvailableCompetitions())
-                mapOfCompetitions.put(competition.getName(), competition.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        compNames = new ArrayList<>(mapOfCompetitions.keySet());
-        RecyclerView recyclerView = findViewById(R.id.idCompetitionsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerViewAdapter(this, compNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter); */
     }
 
     /*Method to generate List of data using RecyclerView with custom adapter*/
-    private void generateDataList(List<Competition> competitionList) {
+    private void generateDataList(List<String> competitionList) {
         RecyclerView recyclerView = findViewById(R.id.idCompetitionsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecyclerViewAdapter(this, competitionList);
@@ -109,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public void onItemClick (View view, int position){
-        String compName = adapter.getItem(position).getName();
+        String compName = adapter.getItem(position);
         String compId = mapOfCompetitions.get(compName);
         Intent intent = new Intent(MainActivity.this, CompetitionActivity.class);
         intent.putExtra("compId", compId); //sending compId to the new Activity

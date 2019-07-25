@@ -53,7 +53,8 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
                 intent.putExtra("teamId", mData.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("teamName", mData.get(holder.getAdapterPosition()).getName());
                 intent.putExtra("compId", compId);
-                mInflater.getContext().startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(intent);
             }
         });
     }

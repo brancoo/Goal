@@ -14,18 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Competition.Competition;
 
 import java.util.List;
+import java.util.Map;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private List<Competition> mData;
+    private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private int compIcons[] = { R.drawable.ic_brasileirao, R.drawable.ic_premierleague, R.drawable.ic_championship,
-                                R.drawable.ic_champions, R.drawable.ic_euro2016, R.drawable.ic_ligueone,
-                                R.drawable.ic_bundesliga, R.drawable.ic_seriea, R.drawable.ic_eredivisie,
-                                R.drawable.ic_liganos, R.drawable.ic_laliga, R.drawable.ic_worldcup};
+    private int compIcons[] = { R.drawable.ic_liganos, R.drawable.ic_champions, R.drawable.ic_ligueone,
+                                R.drawable.ic_worldcup, R.drawable.ic_championship, R.drawable.ic_eredivisie,
+                                R.drawable.ic_bundesliga, R.drawable.ic_premierleague, R.drawable.ic_euro2016,
+                                R.drawable.ic_seriea, R.drawable.ic_laliga, R.drawable.ic_brasileirao};
 
     // data is passed into the constructor
-    RecyclerViewAdapter(Context context, List<Competition> data) {
+    RecyclerViewAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -40,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.myTextView.setText(mData.get(position).getName());
+        holder.myTextView.setText(mData.get(position));
         Drawable iconEredivisie = ContextCompat.getDrawable(mInflater.getContext(), R.drawable.ic_eredivisie);
         Drawable iconPremierLeague = ContextCompat.getDrawable(mInflater.getContext(), R.drawable.ic_premierleague);
         iconEredivisie.setColorFilter(ContextCompat.getColor(mInflater.getContext(), R.color.colorPrimaryNight), PorterDuff.Mode.MULTIPLY);
@@ -73,7 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
         // convenience method for getting data at click position
-        Competition getItem(int id) {
+        String getItem(int id) {
             return mData.get(id);
         }
 
@@ -92,7 +93,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             notifyDataSetChanged();
         }
 
-        public void addAll(List<Competition> list) {
+        public void addAll(List<String> list) {
             mData.addAll(list);
             notifyDataSetChanged();
         }
