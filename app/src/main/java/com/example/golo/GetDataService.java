@@ -4,7 +4,6 @@ import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionList;
 import com.example.Models.Match.MatchList;
 import com.example.Models.Match.SingleMatch;
-import com.example.Models.Player.Scorer;
 import com.example.Models.Player.ScoringList;
 import com.example.Models.Standing.Standing;
 import com.example.Models.Team.Team;

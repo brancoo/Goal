@@ -2,7 +2,6 @@ package com.example.golo;
 
 import android.content.Context;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.pixplicity.sharp.Sharp;
 import com.pixplicity.sharp.SvgParseException;
 import okhttp3.*;

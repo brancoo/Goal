@@ -15,11 +15,11 @@ import java.util.Comparator;
 import java.util.List;
 
 public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTeamAdapter.ViewHolder> {
-    private List<Team> mData;
-    private LayoutInflater mInflater;
+    private final List<Team> mData;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private String stringResource;
-    private String compId;
+    private final String stringResource;
+    private final String compId;
 
     RecyclerViewTeamAdapter(Context context, List<Team> data, String compId) {
         this.mInflater = LayoutInflater.from(context);
@@ -66,10 +66,10 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView teamName;
-        private TextView teamFoundation;
-        private TextView teamStadium;
-        private RelativeLayout relativeLayout;
+        private final TextView teamName;
+        private final TextView teamFoundation;
+        private final TextView teamStadium;
+        private final RelativeLayout relativeLayout;
 
         ViewHolder(View itemView) {
             super(itemView);

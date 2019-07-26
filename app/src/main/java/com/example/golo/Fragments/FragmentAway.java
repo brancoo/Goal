@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Standing.StandingType;
 import com.example.golo.R;
 import com.example.golo.RecyclerViewStandingAdapter;
+
 import java.util.ArrayList;
 
 public class FragmentAway extends Fragment{
-    private View view;
-    private RecyclerView recyclerView;
     private ArrayList<StandingType> standingTeamList;
 
     public FragmentAway(){
@@ -25,8 +24,8 @@ public class FragmentAway extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceBundle){
-        view = inflater.inflate(R.layout.away_fragment, container, false);
-        recyclerView = view.findViewById(R.id.awayStandingRecyclerView);
+        View view = inflater.inflate(R.layout.away_fragment, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.awayStandingRecyclerView);
         String compId = getArguments().getString("compId");
         RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(),standingTeamList.get(2).getTable(), compId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -4,13 +4,11 @@ package com.example.golo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Match.Match;
@@ -19,8 +17,8 @@ import java.util.ArrayList;
 
 public class RecyclerViewMatchesAdapter extends RecyclerView.Adapter<RecyclerViewMatchesAdapter.ViewHolder> {
 
-    private ArrayList<Match> mData;
-    private LayoutInflater mInflater;
+    private final ArrayList<Match> mData;
+    private final LayoutInflater mInflater;
     private RecyclerViewMatchesAdapter.ItemClickListener mClickListener;
 
     // data is passed into the constructor
@@ -84,13 +82,13 @@ public class RecyclerViewMatchesAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView matchDate;
-        private TextView matchDay;
-        private TextView matchHomeTeam;
-        private TextView matchAwayTeam;
-        private TextView matchAwayTeamScore;
-        private TextView matchHomeTeamScore;
-        private RelativeLayout relativeLayout;
+        private final TextView matchDate;
+        private final TextView matchDay;
+        private final TextView matchHomeTeam;
+        private final TextView matchAwayTeam;
+        private final TextView matchAwayTeamScore;
+        private final TextView matchHomeTeamScore;
+        private final RelativeLayout relativeLayout;
 
         ViewHolder(View itemView) {
             super(itemView);

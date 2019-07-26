@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.Models.Player.Scorer;
 import com.example.Models.Player.ScoringList;
 import com.example.golo.GetDataService;
 import com.example.golo.R;
@@ -19,11 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FragmentScorers extends Fragment {
-    private GetDataService apiService;
     private RecyclerView recyclerView;
     private RecyclerViewScorersAdapter recyclerViewScorersAdapter;
 
@@ -43,7 +38,7 @@ public class FragmentScorers extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
 
-        apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
+        GetDataService apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
         Call<ScoringList> scorer = apiService.getScorers(getArguments().getString("compId"));
         scorer.enqueue(new Callback<ScoringList>() {
             @Override

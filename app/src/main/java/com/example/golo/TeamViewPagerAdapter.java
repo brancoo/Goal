@@ -13,7 +13,7 @@ public class TeamViewPagerAdapter extends FragmentPagerAdapter {
     private final List<String> fragmentListNames = new ArrayList<>();
 
     public TeamViewPagerAdapter(FragmentManager fm){
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        super(fm);
     }
 
     @Override

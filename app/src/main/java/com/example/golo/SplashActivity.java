@@ -6,14 +6,14 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
-    // Tempo da splash screen
-    private static int SPLASH_TIME_OUT = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Tempo da splash screen
+        int SPLASH_TIME_OUT = 500;
         new Handler().postDelayed(new Runnable() {
             // Exibindo splash com um temporizador.
 

@@ -17,8 +17,6 @@ import com.example.golo.Utils;
 import com.squareup.picasso.Picasso;
 
 public class FragmentTeamInfo extends Fragment {
-    private View v;
-    private Team team;
 
     public FragmentTeamInfo(){
 
@@ -27,8 +25,8 @@ public class FragmentTeamInfo extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.teaminfo_fragment, container, false);
-        team = (Team) getArguments().getSerializable("team");
+        View v = inflater.inflate(R.layout.teaminfo_fragment, container, false);
+        Team team = (Team) getArguments().getSerializable("team");
 
         ImageView teamLogo = v.findViewById(R.id.teamLogoId);
         TextView teamAlias = v.findViewById(R.id.teamAliasId);

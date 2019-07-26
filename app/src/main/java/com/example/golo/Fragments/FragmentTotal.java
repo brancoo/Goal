@@ -15,8 +15,6 @@ import com.example.golo.RecyclerViewStandingAdapter;
 import java.util.ArrayList;
 
 public class FragmentTotal extends Fragment {
-    private View view;
-    private RecyclerView recyclerView;
     private ArrayList<StandingType> standingTeamList;
 
     public FragmentTotal(){
@@ -25,8 +23,8 @@ public class FragmentTotal extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceBundle){
-        view = inflater.inflate(R.layout.total_fragment, container, false);
-        recyclerView = view.findViewById(R.id.totalStandingRecyclerView);
+        View view = inflater.inflate(R.layout.total_fragment, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.totalStandingRecyclerView);
         String compId = getArguments().getString("compId");
         RecyclerViewStandingAdapter recyclerViewStandingAdapter = new RecyclerViewStandingAdapter(getActivity(),standingTeamList.get(0).getTable(), compId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -1,25 +1,19 @@
 package com.example.golo;
 
 import android.content.Context;
-import android.text.Selection;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Player.Player;
 
 import java.util.List;
 
 public class RecyclerViewSquadAdapter extends RecyclerView.Adapter<RecyclerViewSquadAdapter.ViewHolder> {
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
     private RecyclerViewSquadAdapter.ItemClickListener mClickListener;
-    private List<Player> teamSquad;
+    private final List<Player> teamSquad;
 
     public RecyclerViewSquadAdapter(Context context, List<Player> teamSquad) {
         this.mInflater = LayoutInflater.from(context);
@@ -55,10 +49,10 @@ public class RecyclerViewSquadAdapter extends RecyclerView.Adapter<RecyclerViewS
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView squadPlayerName;
-        private TextView squadPlayerPosition;
-        private TextView squadPlayerNationality;
-        private TextView squadPlayerRole;
+        private final TextView squadPlayerName;
+        private final TextView squadPlayerPosition;
+        private final TextView squadPlayerNationality;
+        private final TextView squadPlayerRole;
 
         ViewHolder(View itemView) {
             super(itemView);

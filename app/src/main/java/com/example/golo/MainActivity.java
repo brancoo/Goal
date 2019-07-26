@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,10 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionList;
+import org.json.JSONException;
+import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +28,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
     private RecyclerViewAdapter adapter;
-    private Map<String, String> mapOfCompetitions = new HashMap<String, String>();
+    private final Map<String, String> mapOfCompetitions = new HashMap<>();
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -33,13 +36,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutId);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            setData();
+            swipeRefreshLayout.setRefreshing(false);
+        });
+
         toolbar.setTitle("GOLO");
         setSupportActionBar(toolbar);
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         if(!ConnectivityHelper.isConnectedToNetwork(getApplicationContext())){
             new AlertDialog.Builder(this)
@@ -49,12 +56,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     .show();
         }else {
             setData();
-
-            swipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutId);
-            swipeRefreshLayout.setOnRefreshListener(() -> {
-                setData();
-                swipeRefreshLayout.setRefreshing(false);
-            });
         }
     }
 
@@ -74,10 +75,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                         mapOfCompetitions.put(competition.getName(), competition.getId());
                     List<String> values = new ArrayList<>(mapOfCompetitions.keySet());
                     generateDataList(values);
+                }else{
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(MainActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+
             @Override
             public void onFailure(Call<CompetitionList> call, Throwable t) {
+                t.printStackTrace();
                 progressBar.setVisibility(View.GONE);
             }
         });

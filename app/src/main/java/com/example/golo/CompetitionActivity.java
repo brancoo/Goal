@@ -2,6 +2,8 @@ package com.example.golo;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -17,10 +19,13 @@ import com.example.golo.Fragments.FragmentHome;
 import com.example.golo.Fragments.FragmentScorers;
 import com.example.golo.Fragments.FragmentTotal;
 import com.google.android.material.tabs.TabLayout;
+import org.json.JSONException;
+import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CompetitionActivity extends AppCompatActivity implements RecyclerViewStandingAdapter.ItemClickListener, RecyclerViewScorersAdapter.ItemClickListener,RecyclerViewTeamAdapter.ItemClickListener{
@@ -30,10 +35,12 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
     private RecyclerViewTeamAdapter recyclerViewTeamAdapter;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
-    private String[] startYear, endYear;
-    private String currentSeason;
     private String compId;
     private GetDataService apiService;
+    private ProgressBar progressBar;
+    private Competition competition;
+    private Standing standing;
+    private TeamList teamList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +51,23 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
         Bundle extras = getIntent().getExtras();
         compId = extras.getString("compId"); //vou buscar o ID da competição seleccionada anteriormente
 
+        progressBar = findViewById(R.id.progressBarId);
+
         apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
         Call<Competition> competitionCall = apiService.getCompetition(compId);
         competitionCall.enqueue(new Callback<Competition>() {
             @Override
             public void onResponse(Call<Competition> call, Response<Competition> response) {
                 if (response.isSuccessful()) {
+                    competition = response.body();
                     //caso retorne standings
-                    if (Integer.parseInt(response.body().getId()) == 2013 ||
-                            Integer.parseInt(response.body().getId()) == 2019 ||
-                            Integer.parseInt(response.body().getId()) == 2021 ||
-                            Integer.parseInt(response.body().getId()) == 2002 ||
-                            Integer.parseInt(response.body().getId()) == 2003) {
+                    if (Integer.parseInt(competition.getId()) == 2013 ||
+                            Integer.parseInt(competition.getId()) == 2019 ||
+                            Integer.parseInt(competition.getId()) == 2021 ||
+                            Integer.parseInt(competition.getId()) == 2002 ||
+                            Integer.parseInt(competition.getId()) == 2003) {
 
-                        setToolbarInfo(response);
+                        setToolbarInfo();
                         tabLayout = findViewById(R.id.tabLayoutId);
                         viewPager = findViewById(R.id.viewPagerId);
                         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -68,8 +78,11 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                             @Override
                             public void onResponse(Call<Standing> call, Response<Standing> response) {
                                 if (response.isSuccessful()) {
-                                    ArrayList<StandingType> standingTeams = new ArrayList<>(response.body().getStandings().size());
-                                    standingTeams.addAll(response.body().getStandings());
+                                    standing = response.body();
+
+                                    progressBar.setVisibility(View.GONE);
+                                    ArrayList<StandingType> standingTeams = new ArrayList<>(standing.getStandings().size());
+                                    standingTeams.addAll(standing.getStandings());
                                     extras.putSerializable("standings", standingTeams);
                                     extras.putString("compId", compId);
 
@@ -89,6 +102,13 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                                     viewPagerAdapter.AddFragment(fragmentScorers, "SCORERS");
                                     viewPager.setAdapter(viewPagerAdapter);
                                     tabLayout.setupWithViewPager(viewPager);
+                                }else{
+                                    try {
+                                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                        Toast.makeText(CompetitionActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException | IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
 
@@ -99,18 +119,31 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                         });
                     }else { //caso não existam standings na API, mostra as equipas que disputam a competição
                         setContentView(R.layout.teams_competition);
-                        setToolbarInfo(response);
+                        setToolbarInfo();
+
+                        progressBar.setVisibility(View.VISIBLE);
+
                         apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
                         Call<TeamList> teamListCall = apiService.getTeams(compId);
                         teamListCall.enqueue(new Callback<TeamList>() {
                             @Override
                             public void onResponse(Call<TeamList> call, Response<TeamList> response) {
                                 if(response.isSuccessful()){
+                                    teamList = response.body();
+
                                     recyclerView = findViewById(R.id.teamsRecyclerView);
                                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                    recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(getApplicationContext(), response.body().getTeams(), compId);
+                                    recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(getApplicationContext(), teamList.getTeams(), compId);
                                     recyclerViewTeamAdapter.setClickListener(CompetitionActivity.this::onItemClick);
                                     recyclerView.setAdapter(recyclerViewTeamAdapter);
+                                    progressBar.setVisibility(View.GONE);
+                                }else{
+                                    try {
+                                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                        Toast.makeText(CompetitionActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException | IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                             @Override
@@ -118,6 +151,13 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
                                 t.printStackTrace();
                             }
                         });
+                    }
+                }else{
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(CompetitionActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -128,18 +168,18 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
         });
     }
 
-    public void setToolbarInfo(Response<Competition> response){
+    public void setToolbarInfo(){
         toolbar = findViewById(R.id.toolbar);
-        setIconToolbar(response);
+        setIconToolbar();
         setSupportActionBar(toolbar);
-        startYear = response.body().getCurrentSeason().getStartDate().split(("-"));
-        endYear = response.body().getCurrentSeason().getEndDate().split(("-"));
-        currentSeason = startYear[0] + "/" + endYear[0];
-        getSupportActionBar().setTitle("\t" + response.body().getName() + " - " + currentSeason);
+        String[] startYear = competition.getCurrentSeason().getStartDate().split(("-"));
+        String[] endYear = competition.getCurrentSeason().getEndDate().split(("-"));
+        String currentSeason = startYear[0] + "/" + endYear[0];
+        getSupportActionBar().setTitle("\t" + competition.getName() + " - " + currentSeason);
     }
 
-    public void setIconToolbar(Response<Competition> response){
-        switch(response.body().getArea().getName()){
+    public void setIconToolbar(){
+        switch(competition.getArea().getName()){
             case "Portugal":toolbar.setLogo(R.drawable.ic_portugal); break;
             case "Spain":   toolbar.setLogo(R.drawable.ic_spain); break;
             case "Germany": toolbar.setLogo(R.drawable.ic_germany); break;

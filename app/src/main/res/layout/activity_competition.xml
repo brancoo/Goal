@@ -7,6 +7,17 @@
         tools:context=".CompetitionActivity">
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 
+    <ProgressBar
+            android:id="@+id/progressBarId"
+            android:scaleX=".1"
+            android:scaleY=".1"
+            android:indeterminateOnly="true"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="?attr/actionBarSize"/>
+
     <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

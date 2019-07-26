@@ -16,8 +16,6 @@ import com.example.golo.RecyclerViewSquadAdapter;
 import java.util.ArrayList;
 
 public class FragmentTeamSquad extends Fragment {
-    private View v;
-    private RecyclerView recyclerView;
     private ArrayList<Player> teamSquad;
 
     public FragmentTeamSquad(){
@@ -27,8 +25,8 @@ public class FragmentTeamSquad extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.teamsquad_fragment, container, false);
-        recyclerView = v.findViewById(R.id.squadRecyclerViewId);
+        View v = inflater.inflate(R.layout.teamsquad_fragment, container, false);
+        RecyclerView recyclerView = v.findViewById(R.id.squadRecyclerViewId);
         RecyclerViewSquadAdapter recyclerViewStandingAdapter = new RecyclerViewSquadAdapter(getActivity(),teamSquad);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerViewStandingAdapter);

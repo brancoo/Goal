@@ -1,7 +1,6 @@
 package com.example.golo.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Models.Match.Match;
 import com.example.golo.R;
 import com.example.golo.RecyclerViewMatchesAdapter;
-import com.example.golo.RecyclerViewStandingAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FragmentTeamMatches extends Fragment {
     private ArrayList<Match> matchList;

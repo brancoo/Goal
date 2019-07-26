@@ -2,10 +2,6 @@ package com.example.golo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +12,10 @@ import com.example.Models.Standing.StandingTeam;
 import java.util.List;
 
 public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerViewStandingAdapter.ViewHolder> {
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
     private RecyclerViewStandingAdapter.ItemClickListener mClickListener;
-    private List<StandingTeam> standingTeams;
-    private String compId;
+    private final List<StandingTeam> standingTeams;
+    private final String compId;
 
     public RecyclerViewStandingAdapter(Context context, List<StandingTeam> standingTeams, String compId) {
         this.mInflater = LayoutInflater.from(context);
@@ -65,15 +61,15 @@ public class RecyclerViewStandingAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView textViewTeamPosition;
-    public TextView textViewTeamName;
-    public TextView textViewTeamPoints;
-    public TextView textViewTeamWins;
-    public TextView textViewTeamDraws;
-    public TextView textViewTeamLosses;
-    public TextView textViewTeamGoalsScored;
-    public TextView textViewTeamGoalsAgainst;
-    public TextView textViewTeamGoalsDifference;
+        public final TextView textViewTeamPosition;
+    public final TextView textViewTeamName;
+    public final TextView textViewTeamPoints;
+    public final TextView textViewTeamWins;
+    public final TextView textViewTeamDraws;
+    public final TextView textViewTeamLosses;
+    public final TextView textViewTeamGoalsScored;
+    public final TextView textViewTeamGoalsAgainst;
+    public final TextView textViewTeamGoalsDifference;
 
     ViewHolder(View itemView) {
         super(itemView);

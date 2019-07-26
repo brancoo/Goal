@@ -1,12 +1,10 @@
 package com.example.Models.Player;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Player implements Parcelable {
+public class Player implements Serializable {
     @SerializedName("id")
     private String id;
 
@@ -72,15 +70,5 @@ public class Player implements Parcelable {
 
     public String getNationality() {
         return nationality;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
     }
 }

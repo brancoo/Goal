@@ -11,9 +11,9 @@ import com.example.Models.Player.Scorer;
 import java.util.List;
 
 public class RecyclerViewScorersAdapter extends RecyclerView.Adapter<RecyclerViewScorersAdapter.ViewHolder> {
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
     private RecyclerViewScorersAdapter.ItemClickListener mClickListener;
-    private List<Scorer> scorerList;
+    private final List<Scorer> scorerList;
 
     public RecyclerViewScorersAdapter(Context context, List<Scorer> scorerList) {
         this.mInflater = LayoutInflater.from(context);
@@ -42,10 +42,10 @@ public class RecyclerViewScorersAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView scorerName;
-        private TextView scorerTeam;
-        private TextView scorerNationality;
-        private TextView scorerGoals;
+        private final TextView scorerName;
+        private final TextView scorerTeam;
+        private final TextView scorerNationality;
+        private final TextView scorerGoals;
 
         ViewHolder(View itemView) {
             super(itemView);
