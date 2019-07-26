@@ -8,6 +8,6 @@ Work in progress...
 ## to do list:
  - [ ] - Better handling after getting the max limit request per minute;
  
-# bugs:
+### bugs:
  - Using Retrofit the application reaches the max limi of requests faster than using the native HTTP request handling of Java.
  
