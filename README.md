@@ -6,8 +6,8 @@ Check out the screenshots inside the project.
 Work in progress...
 
 ## to do list:
- - [ ] - Better handling after getting the max limit request per minute;
+ - [ ] - In some cases the match activity do not displays the correct information;
+ - [ ] - bug with progress bar (set the visibility of it as "gone").
  
-### bugs:
- - Using Retrofit the application reaches the max limi of requests faster than using the native HTTP request handling of Java.
+ After complete the * *to do list* * the project can be considered as finished.
  
