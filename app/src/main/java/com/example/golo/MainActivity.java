@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.Models.Competition.Competition;
 import com.example.Models.Competition.CompetitionList;
-import org.json.JSONException;
-import org.json.JSONObject;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,30 +63,31 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         progressBar = findViewById(R.id.progressBarId);
 
         GetDataService apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
-        Call<CompetitionList> compList = apiService.getCompetitions();
-        compList.enqueue(new Callback<CompetitionList>() {
+        apiService.getCompetitions().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<CompetitionList>() {
             @Override
-            public void onResponse(Call<CompetitionList> call, Response<CompetitionList> response) {
-                progressBar.setVisibility(View.GONE);
-                if(response.isSuccessful()) {
-                    for(Competition competition : response.body().getAvailableCompetitions())
-                        mapOfCompetitions.put(competition.getName(), competition.getId());
-                    List<String> values = new ArrayList<>(mapOfCompetitions.keySet());
-                    generateDataList(values);
-                }else{
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(MainActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override
-            public void onFailure(Call<CompetitionList> call, Throwable t) {
-                t.printStackTrace();
+            public void onNext(CompetitionList competitionList) {
                 progressBar.setVisibility(View.GONE);
+                for(Competition competition : competitionList.getAvailableCompetitions())
+                    mapOfCompetitions.put(competition.getName(), competition.getId());
+                List<String> values = new ArrayList<>(mapOfCompetitions.keySet());
+                generateDataList(values);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "DEU BOSTA", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onComplete() {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "COMPLETED!", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -3,7 +3,6 @@ package com.example.golo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -19,13 +18,11 @@ import com.example.golo.Fragments.FragmentHome;
 import com.example.golo.Fragments.FragmentScorers;
 import com.example.golo.Fragments.FragmentTotal;
 import com.google.android.material.tabs.TabLayout;
-import org.json.JSONException;
-import org.json.JSONObject;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CompetitionActivity extends AppCompatActivity implements RecyclerViewStandingAdapter.ItemClickListener, RecyclerViewScorersAdapter.ItemClickListener,RecyclerViewTeamAdapter.ItemClickListener{
@@ -38,9 +35,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
     private String compId;
     private GetDataService apiService;
     private ProgressBar progressBar;
-    private Competition competition;
-    private Standing standing;
-    private TeamList teamList;
+    private Competition comp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,116 +49,112 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
         progressBar = findViewById(R.id.progressBarId);
 
         apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
-        Call<Competition> competitionCall = apiService.getCompetition(compId);
-        competitionCall.enqueue(new Callback<Competition>() {
+        apiService.getCompetition(compId).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Competition>() {
             @Override
-            public void onResponse(Call<Competition> call, Response<Competition> response) {
-                if (response.isSuccessful()) {
-                    competition = response.body();
-                    //caso retorne standings
-                    if (Integer.parseInt(competition.getId()) == 2013 ||
-                            Integer.parseInt(competition.getId()) == 2019 ||
-                            Integer.parseInt(competition.getId()) == 2021 ||
-                            Integer.parseInt(competition.getId()) == 2002 ||
-                            Integer.parseInt(competition.getId()) == 2003) {
+            public void onSubscribe(Disposable d) {
 
-                        setToolbarInfo();
-                        tabLayout = findViewById(R.id.tabLayoutId);
-                        viewPager = findViewById(R.id.viewPagerId);
-                        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            }
 
-                        apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
-                        Call<Standing> standingCall = apiService.getStandings(compId);
-                        standingCall.enqueue(new Callback<Standing>() {
-                            @Override
-                            public void onResponse(Call<Standing> call, Response<Standing> response) {
-                                if (response.isSuccessful()) {
-                                    standing = response.body();
+            @Override
+            public void onNext(Competition competition) {
+                comp = competition;
+                if (Integer.parseInt(competition.getId()) == 2013 ||
+                        Integer.parseInt(competition.getId()) == 2019 ||
+                        Integer.parseInt(competition.getId()) == 2021 ||
+                        Integer.parseInt(competition.getId()) == 2002 ||
+                        Integer.parseInt(competition.getId()) == 2003) {
 
-                                    progressBar.setVisibility(View.GONE);
-                                    ArrayList<StandingType> standingTeams = new ArrayList<>(standing.getStandings().size());
-                                    standingTeams.addAll(standing.getStandings());
-                                    extras.putSerializable("standings", standingTeams);
-                                    extras.putString("compId", compId);
+                    setToolbarInfo();
+                    tabLayout = findViewById(R.id.tabLayoutId);
+                    viewPager = findViewById(R.id.viewPagerId);
+                    viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-                                    FragmentTotal fragmentTotal = new FragmentTotal();
-                                    FragmentHome fragmentHome = new FragmentHome();
-                                    FragmentAway fragmentAway = new FragmentAway();
-                                    FragmentScorers fragmentScorers = new FragmentScorers();
+                    apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
+                    apiService.getStandings(compId).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Standing>(){
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                                    fragmentTotal.setArguments(extras); //envio os standings para os fragments
-                                    fragmentHome.setArguments(extras);
-                                    fragmentAway.setArguments(extras);
-                                    fragmentScorers.setArguments(extras);
+                        }
 
-                                    viewPagerAdapter.AddFragment(fragmentTotal, "TOTAL");
-                                    viewPagerAdapter.AddFragment(fragmentHome, "HOME");
-                                    viewPagerAdapter.AddFragment(fragmentAway, "AWAY");
-                                    viewPagerAdapter.AddFragment(fragmentScorers, "SCORERS");
-                                    viewPager.setAdapter(viewPagerAdapter);
-                                    tabLayout.setupWithViewPager(viewPager);
-                                }else{
-                                    try {
-                                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                        Toast.makeText(CompetitionActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
-                                    } catch (JSONException | IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
+                        @Override
+                        public void onNext(Standing standing) {
+                            ArrayList<StandingType> standingTeams = new ArrayList<>(standing.getStandings().size());
+                            standingTeams.addAll(standing.getStandings());
+                            extras.putSerializable("standings", standingTeams);
+                            extras.putString("compId", compId);
 
-                            @Override
-                            public void onFailure(Call<Standing> call, Throwable t) {
-                                t.printStackTrace();
-                            }
-                        });
-                    }else { //caso não existam standings na API, mostra as equipas que disputam a competição
-                        setContentView(R.layout.teams_competition);
-                        setToolbarInfo();
+                            FragmentTotal fragmentTotal = new FragmentTotal();
+                            FragmentHome fragmentHome = new FragmentHome();
+                            FragmentAway fragmentAway = new FragmentAway();
+                            FragmentScorers fragmentScorers = new FragmentScorers();
 
-                        progressBar.setVisibility(View.VISIBLE);
+                            fragmentTotal.setArguments(extras); //envio os standings para os fragments
+                            fragmentHome.setArguments(extras);
+                            fragmentAway.setArguments(extras);
+                            fragmentScorers.setArguments(extras);
 
-                        apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
-                        Call<TeamList> teamListCall = apiService.getTeams(compId);
-                        teamListCall.enqueue(new Callback<TeamList>() {
-                            @Override
-                            public void onResponse(Call<TeamList> call, Response<TeamList> response) {
-                                if(response.isSuccessful()){
-                                    teamList = response.body();
+                            viewPagerAdapter.AddFragment(fragmentTotal, "TOTAL");
+                            viewPagerAdapter.AddFragment(fragmentHome, "HOME");
+                            viewPagerAdapter.AddFragment(fragmentAway, "AWAY");
+                            viewPagerAdapter.AddFragment(fragmentScorers, "SCORERS");
+                            viewPager.setAdapter(viewPagerAdapter);
+                            tabLayout.setupWithViewPager(viewPager);
+                        }
 
-                                    recyclerView = findViewById(R.id.teamsRecyclerView);
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                    recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(getApplicationContext(), teamList.getTeams(), compId);
-                                    recyclerViewTeamAdapter.setClickListener(CompetitionActivity.this::onItemClick);
-                                    recyclerView.setAdapter(recyclerViewTeamAdapter);
-                                    progressBar.setVisibility(View.GONE);
-                                }else{
-                                    try {
-                                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                        Toast.makeText(CompetitionActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
-                                    } catch (JSONException | IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<TeamList> call, Throwable t) {
-                                t.printStackTrace();
-                            }
-                        });
-                    }
-                }else{
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(CompetitionActivity.this, "HAVE TO WAIT: " + jObjError.getString("message").substring(37,39)+ " seconds!", Toast.LENGTH_SHORT).show();
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+                }else { //caso não existam standings na API, mostra as equipas que disputam a competição
+                    setContentView(R.layout.teams_competition);
+                    setToolbarInfo();
+
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
+                    apiService.getTeams(compId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<TeamList>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(TeamList teamList) {
+                            recyclerView = findViewById(R.id.teamsRecyclerView);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            recyclerViewTeamAdapter = new RecyclerViewTeamAdapter(getApplicationContext(), teamList.getTeams(), compId);
+                            recyclerViewTeamAdapter.setClickListener(CompetitionActivity.this::onItemClick);
+                            recyclerView.setAdapter(recyclerViewTeamAdapter);
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
                 }
             }
+
             @Override
-            public void onFailure(Call<Competition> call, Throwable t) {
-                t.printStackTrace();
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
     }
@@ -172,14 +163,14 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
         toolbar = findViewById(R.id.toolbar);
         setIconToolbar();
         setSupportActionBar(toolbar);
-        String[] startYear = competition.getCurrentSeason().getStartDate().split(("-"));
-        String[] endYear = competition.getCurrentSeason().getEndDate().split(("-"));
+        String[] startYear = comp.getCurrentSeason().getStartDate().split(("-"));
+        String[] endYear = comp.getCurrentSeason().getEndDate().split(("-"));
         String currentSeason = startYear[0] + "/" + endYear[0];
-        getSupportActionBar().setTitle("\t" + competition.getName() + " - " + currentSeason);
+        getSupportActionBar().setTitle("\t" + comp.getName() + " - " + currentSeason);
     }
 
     public void setIconToolbar(){
-        switch(competition.getArea().getName()){
+        switch(comp.getArea().getName()){
             case "Portugal":toolbar.setLogo(R.drawable.ic_portugal); break;
             case "Spain":   toolbar.setLogo(R.drawable.ic_spain); break;
             case "Germany": toolbar.setLogo(R.drawable.ic_germany); break;

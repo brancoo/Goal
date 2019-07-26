@@ -14,6 +14,10 @@ import com.example.golo.GetDataService;
 import com.example.golo.R;
 import com.example.golo.RecyclerViewScorersAdapter;
 import com.example.golo.RetrofitClient;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,18 +43,27 @@ public class FragmentScorers extends Fragment {
         super.onCreate(savedInstanceBundle);
 
         GetDataService apiService = RetrofitClient.getRetrofitInstance().create(GetDataService.class);
-        Call<ScoringList> scorer = apiService.getScorers(getArguments().getString("compId"));
-        scorer.enqueue(new Callback<ScoringList>() {
+        apiService.getScorers(getArguments().getString("compId")).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<ScoringList>() {
             @Override
-            public void onResponse(Call<ScoringList> call, Response<ScoringList> response) {
-                recyclerViewScorersAdapter = new RecyclerViewScorersAdapter(getContext(), response.body().getScorers());
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(ScoringList scoringList) {
+                recyclerViewScorersAdapter = new RecyclerViewScorersAdapter(getContext(), scoringList.getScorers());
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter(recyclerViewScorersAdapter);
             }
 
             @Override
-            public void onFailure(Call<ScoringList> call, Throwable t) {
-                Toast.makeText(getContext(), "ERRO SCORERS", Toast.LENGTH_LONG).show();
+            public void onError(Throwable e) {
+                Toast.makeText(getContext(),"ERRO SCORERS", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
     }
