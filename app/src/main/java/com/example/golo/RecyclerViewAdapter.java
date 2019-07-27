@@ -1,12 +1,16 @@
 package com.example.golo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +21,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final List<String> mData;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private int index = -1;
     private final int[] compIcons = { R.drawable.ic_liganos, R.drawable.ic_champions, R.drawable.ic_ligueone,
                                 R.drawable.ic_worldcup, R.drawable.ic_championship, R.drawable.ic_eredivisie,
                                 R.drawable.ic_bundesliga, R.drawable.ic_premierleague, R.drawable.ic_euro2016,
@@ -44,6 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         iconEredivisie.setColorFilter(ContextCompat.getColor(mInflater.getContext(), R.color.colorPrimaryNight), PorterDuff.Mode.MULTIPLY);
         iconPremierLeague.setColorFilter(ContextCompat.getColor(mInflater.getContext(),R.color.colorPrimaryNight), PorterDuff.Mode.MULTIPLY);
         holder.imageView.setImageResource(compIcons[position]);
+
     }
 
     // total number of rows

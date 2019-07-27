@@ -103,7 +103,7 @@ public class TeamActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(TeamActivity.this,"ERRO TEAM ACTIVITY - match list", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
@@ -115,7 +115,7 @@ public class TeamActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
-                Toast.makeText(TeamActivity.this,"ERRO TEAM ACTIVITY - team", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

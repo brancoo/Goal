@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MatchActivity extends AppCompatActivity {
-    private SingleMatch singleMatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +56,20 @@ public class MatchActivity extends AppCompatActivity {
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setTitle("Matchday: " + singleMatch.getMatch().getMatchday() + " | " + singleMatch.getMatch().getUtcDate().substring(0, 10));
 
-                matchTeams.setText(singleMatch.getMatch().getHomeTeam().getName() + " vs. " + singleMatch.getMatch().getAwayTeam().getName());
-                matchStadium.setText("Stadium: " + singleMatch.getMatch().getVenue());
-                matchStage.setText("Stage: " + singleMatch.getMatch().getStage().replace("_", " "));
-                matchDate.setText("Match Date: " + singleMatch.getMatch().getUtcDate().substring(0, 10));
-
                 if (singleMatch.getMatch().getStatus().equals("FINISHED")) {
                     matchFinalScore.setText("Final Score: " + singleMatch.getMatch().getHomeTeam().getName() + " " + singleMatch.getMatch().getScore().getFullTime().getHomeTeam() + " - " + singleMatch.getMatch().getAwayTeam().getName() + " " + singleMatch.getMatch().getScore().getFullTime().getAwayTeam());
-                    matchHalfTimeScore.setText("HalfTime Score: " + singleMatch.getMatch().getHomeTeam().getName() + " " + singleMatch.getMatch().getScore().getHalfTime().getHomeTeam() + " - " + singleMatch.getMatch().getAwayTeam().getName() + " " + singleMatch.getMatch().getScore().getHalfTime().getAwayTeam());
+                    matchHalfTimeScore.setText("At Halftime: " + singleMatch.getMatch().getHomeTeam().getName() + " " + singleMatch.getMatch().getScore().getHalfTime().getHomeTeam() + " - " + singleMatch.getMatch().getAwayTeam().getName() + " " + singleMatch.getMatch().getScore().getHalfTime().getAwayTeam());
                 } else {
                     matchFinalScore.setVisibility(View.INVISIBLE);
                     matchHalfTimeScore.setVisibility(View.INVISIBLE);
                 }
 
                 if (singleMatch.getHead2Head() != null) {
+                    matchTeams.setText(singleMatch.getMatch().getHomeTeam().getName() + " vs. " + singleMatch.getMatch().getAwayTeam().getName());
+                    matchStadium.setText("Stadium: " + singleMatch.getMatch().getVenue());
+                    matchStage.setText("Stage: " + singleMatch.getMatch().getStage().replace("_", " "));
+                    matchDate.setText("Match Date: " + singleMatch.getMatch().getUtcDate().substring(0, 10));
+
                     TextView textView = findViewById(R.id.h2hTotalGamesId);
                     textView.setText(singleMatch.getHead2Head().getNumberOfMatches() + " GAMES IN TOTAL");
                     textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -96,12 +95,12 @@ public class MatchActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
-                Toast.makeText(MatchActivity.this, "DEU BOSTA", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onComplete() {
-                Toast.makeText(MatchActivity.this, "COMPLETED!", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

@@ -78,6 +78,7 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
 
                         @Override
                         public void onNext(Standing standing) {
+                            progressBar.setVisibility(View.GONE);
                             ArrayList<StandingType> standingTeams = new ArrayList<>(standing.getStandings().size());
                             standingTeams.addAll(standing.getStandings());
                             extras.putSerializable("standings", standingTeams);

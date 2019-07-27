@@ -8,39 +8,33 @@
 
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/matchTeamsId" android:layout_below="@+id/toolbar"
             android:layout_centerInParent="true" android:textSize="16sp" android:paddingBottom="10dp"/>
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/matchStadiumId"
             android:layout_below="@+id/matchTeamsId"
             android:textSize="16sp" android:layout_centerHorizontal="true" android:paddingBottom="10dp"/>
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/matchStageId"
             android:layout_below="@+id/matchStadiumId"
             android:textSize="16sp"
             android:layout_centerHorizontal="true" android:paddingBottom="10dp"/>
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/matchDateId"
             android:textSize="16sp"
             android:layout_below="@+id/matchStageId" android:layout_centerHorizontal="true"
             android:paddingBottom="10dp"/>
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/matchFinalScoreId"
             android:textSize="16sp"
             android:layout_centerHorizontal="true" android:layout_below="@+id/matchDateId"
             android:paddingBottom="10dp"/>
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/matchHalfTimeScoreId"
             android:textSize="16sp"

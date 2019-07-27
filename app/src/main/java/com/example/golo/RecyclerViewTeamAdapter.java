@@ -2,6 +2,7 @@ package com.example.golo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class RecyclerViewTeamAdapter extends RecyclerView.Adapter<RecyclerViewTe
     private ItemClickListener mClickListener;
     private final String stringResource;
     private final String compId;
+    private int index = -1;
 
     RecyclerViewTeamAdapter(Context context, List<Team> data, String compId) {
         this.mInflater = LayoutInflater.from(context);
