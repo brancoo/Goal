@@ -12,6 +12,11 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+
+plugins {
+    id 'nebula.lint' version '9.3.2'
+}
+
 allprojects {
         repositories {
             mavenCentral()
@@ -25,7 +30,6 @@ allprojects {
             }
         }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
