@@ -58,11 +58,14 @@ public class CompetitionActivity extends AppCompatActivity implements RecyclerVi
             @Override
             public void onNext(Competition competition) {
                 comp = competition;
-                if (Integer.parseInt(competition.getId()) == 2013 ||
+                if (Integer.parseInt(competition.getId()) == 2002 ||
+                        Integer.parseInt(competition.getId()) == 2003 ||
+                        Integer.parseInt(competition.getId()) == 2013 ||
+                        Integer.parseInt(competition.getId()) == 2014 ||
+                        Integer.parseInt(competition.getId()) == 2015 ||
+                        Integer.parseInt(competition.getId()) == 2016 ||
                         Integer.parseInt(competition.getId()) == 2019 ||
-                        Integer.parseInt(competition.getId()) == 2021 ||
-                        Integer.parseInt(competition.getId()) == 2002 ||
-                        Integer.parseInt(competition.getId()) == 2003) {
+                        Integer.parseInt(competition.getId()) == 2021) {
 
                     setToolbarInfo();
                     tabLayout = findViewById(R.id.tabLayoutId);
